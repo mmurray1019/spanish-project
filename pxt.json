@@ -1,0 +1,32 @@
+{
+    "name": "Spanish Project v1.0",
+    "description": "",
+    "dependencies": {
+        "device": "*",
+        "arcade-minimap": "github:microsoft/arcade-minimap#v0.6.1",
+        "smaller-tilemaps": "github:riknoll/smaller-tilemaps#42b1786ff3aafd61aa89ea9b038230fc039d2af3",
+        "pxt-raycasting": "github:aqeeaqee/pxt-raycasting#v0.3.18",
+        "arcade-mini-menu": "github:riknoll/arcade-mini-menu#96cf1014271246d15b85368b45f298bd8c6609c4"
+    },
+    "files": [
+        "main.blocks",
+        "main.ts",
+        "README.md",
+        "assets.json",
+        "tilemap.g.jres",
+        "tilemap.g.ts",
+        "images.g.jres",
+        "images.g.ts"
+    ],
+    "testFiles": [
+        "test.ts"
+    ],
+    "targetVersions": {
+        "target": "1.12.49",
+        "targetId": "arcade"
+    },
+    "supportedTargets": [
+        "arcade"
+    ],
+    "preferredEditor": "blocksprj"
+}
