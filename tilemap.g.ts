@@ -3,30 +3,6 @@ namespace myTiles {
     //% fixedInstance jres blockIdentity=images._tile
     export const transparency16 = image.ofBuffer(hex``);
     //% fixedInstance jres blockIdentity=images._tile
-    export const tile50 = image.ofBuffer(hex``);
-    //% fixedInstance jres blockIdentity=images._tile
-    export const tile54 = image.ofBuffer(hex``);
-    //% fixedInstance jres blockIdentity=images._tile
-    export const tile55 = image.ofBuffer(hex``);
-    //% fixedInstance jres blockIdentity=images._tile
-    export const tile56 = image.ofBuffer(hex``);
-    //% fixedInstance jres blockIdentity=images._tile
-    export const tile57 = image.ofBuffer(hex``);
-    //% fixedInstance jres blockIdentity=images._tile
-    export const tile58 = image.ofBuffer(hex``);
-    //% fixedInstance jres blockIdentity=images._tile
-    export const tile60 = image.ofBuffer(hex``);
-    //% fixedInstance jres blockIdentity=images._tile
-    export const tile51 = image.ofBuffer(hex``);
-    //% fixedInstance jres blockIdentity=images._tile
-    export const tile52 = image.ofBuffer(hex``);
-    //% fixedInstance jres blockIdentity=images._tile
-    export const tile53 = image.ofBuffer(hex``);
-    //% fixedInstance jres blockIdentity=images._tile
-    export const tile61 = image.ofBuffer(hex``);
-    //% fixedInstance jres blockIdentity=images._tile
-    export const tile62 = image.ofBuffer(hex``);
-    //% fixedInstance jres blockIdentity=images._tile
     export const tile2 = image.ofBuffer(hex``);
     //% fixedInstance jres blockIdentity=images._tile
     export const tile3 = image.ofBuffer(hex``);
@@ -122,6 +98,28 @@ namespace myTiles {
     export const tile32 = image.ofBuffer(hex``);
     //% fixedInstance jres blockIdentity=images._tile
     export const tile31 = image.ofBuffer(hex``);
+    //% fixedInstance jres blockIdentity=images._tile
+    export const tile50 = image.ofBuffer(hex``);
+    //% fixedInstance jres blockIdentity=images._tile
+    export const tile54 = image.ofBuffer(hex``);
+    //% fixedInstance jres blockIdentity=images._tile
+    export const tile55 = image.ofBuffer(hex``);
+    //% fixedInstance jres blockIdentity=images._tile
+    export const tile56 = image.ofBuffer(hex``);
+    //% fixedInstance jres blockIdentity=images._tile
+    export const tile57 = image.ofBuffer(hex``);
+    //% fixedInstance jres blockIdentity=images._tile
+    export const tile58 = image.ofBuffer(hex``);
+    //% fixedInstance jres blockIdentity=images._tile
+    export const tile60 = image.ofBuffer(hex``);
+    //% fixedInstance jres blockIdentity=images._tile
+    export const tile51 = image.ofBuffer(hex``);
+    //% fixedInstance jres blockIdentity=images._tile
+    export const tile52 = image.ofBuffer(hex``);
+    //% fixedInstance jres blockIdentity=images._tile
+    export const tile53 = image.ofBuffer(hex``);
+    //% fixedInstance jres blockIdentity=images._tile
+    export const tile62 = image.ofBuffer(hex``);
 
     helpers._registerFactory("tilemap", function(name: string) {
         switch(helpers.stringTrim(name)) {
@@ -398,30 +396,6 @@ namespace myTiles {
     helpers._registerFactory("tile", function(name: string) {
         switch(helpers.stringTrim(name)) {
             case "transparency16":return transparency16;
-            case "myTile38":
-            case "tile50":return tile50;
-            case "myTile42":
-            case "tile54":return tile54;
-            case "myTile43":
-            case "tile55":return tile55;
-            case "myTile44":
-            case "tile56":return tile56;
-            case "myTile45":
-            case "tile57":return tile57;
-            case "myTile46":
-            case "tile58":return tile58;
-            case "myTile48":
-            case "tile60":return tile60;
-            case "myTile39":
-            case "tile51":return tile51;
-            case "myTile40":
-            case "tile52":return tile52;
-            case "myTile41":
-            case "tile53":return tile53;
-            case "myTile49":
-            case "tile61":return tile61;
-            case "myTile50":
-            case "tile62":return tile62;
             case "Tile_Direction_Render_Test":
             case "tile2":return tile2;
             case "Tile_Transparancy_Test":
@@ -518,6 +492,28 @@ namespace myTiles {
             case "tile32":return tile32;
             case "Guernica 5-3":
             case "tile31":return tile31;
+            case "barrier_horizontal":
+            case "tile50":return tile50;
+            case "brick_wall":
+            case "tile54":return tile54;
+            case "Wood_Floor":
+            case "tile55":return tile55;
+            case "barrier_wall_connection":
+            case "tile56":return tile56;
+            case "barrier_bottom_right":
+            case "tile57":return tile57;
+            case "Barrier_vertical":
+            case "tile58":return tile58;
+            case "barrier_bottom_left":
+            case "tile60":return tile60;
+            case "wood_floor_exit_location":
+            case "tile51":return tile51;
+            case "wood_floor_enter_location":
+            case "tile52":return tile52;
+            case "pavilion_exit_location":
+            case "tile53":return tile53;
+            case "church_exit_location":
+            case "tile62":return tile62;
         }
         return null;
     })
