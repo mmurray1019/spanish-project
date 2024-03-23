@@ -152,8 +152,8 @@ controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
     } else if (menu == 2) {
         menu = 0
         sprites.destroy(Not_Avalible)
-        tiles.loadMap(Current_tilemap)
-        controller.moveSprite(Player2d, 0, 0)
+        tiles.loadMap(tiles.createMap(tilemap`Spanish_Pavillion`))
+        controller.moveSprite(Player2d, 100, 100)
         Player2d.setImage(assets.image`Player 3D`)
     }
 })
