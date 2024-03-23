@@ -39,9 +39,8 @@ function _3Dify () {
 }
 function pavillion () {
     Render.setViewMode(ViewMode.tilemapView)
-    Player2d = sprites.create(assets.image`Player_Sprite`, SpriteKind.player_2d)
+    Player2d = sprites.create(assets.image`Player 3D`, SpriteKind.player_2d)
     controller.moveSprite(Player2d)
-    Player2d.setFlag(SpriteFlag.Invisible, false)
     cameraOffsetScene.cameraFollowWithOffset(Player2d, 0, -30)
     player_3D.setImage(assets.image`Hidden_Player_Sprite`)
     player_3D.setFlag(SpriteFlag.Invisible, true)
@@ -122,7 +121,7 @@ controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
             Render.toggleViewMode()
             Render.move(Render.getRenderSpriteInstance(), 0, 0)
             scene.setBackgroundImage(assets.image`Blank_Background`)
-            player_3D.setImage(assets.image`Player_Sprite`)
+            player_3D.setImage(assets.image`Player 3D`)
             Render.moveWithController(0, 0, 0)
             myMinimap = minimap.minimap(MinimapScale.Original, 2, 0)
             Minimap_sprite = sprites.create(minimap.getImage(minimap.minimap(MinimapScale.Quarter, 2, 0)), SpriteKind.Minimap)
@@ -133,11 +132,16 @@ controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
             Minimap_sprite.setImage(minimap.getImage(myMinimap))
             tiles.setCurrentTilemap(tilemap`Blank_map`)
         } else if (Render.isViewMode(ViewMode.tilemapView)) {
+            menu = 2
             Current_tilemap = tiles.getLoadedMap()
+            controller.moveSprite(Player2d, 0, 0)
+            Player2d.setImage(assets.image`Hidden_Player_Sprite`)
             tiles.setCurrentTilemap(tilemap`Blank_map`)
+            Not_Avalible = textsprite.create("Map Not Avalible", 8, 2)
+            tiles.placeOnTile(Not_Avalible, Player2d.tilemapLocation())
         }
     } else if (menu == 1) {
-        player_3D.setImage(assets.image`Player_Sprite`)
+        player_3D.setImage(assets.image`Hidden_Player_Sprite`)
         tiles.setCurrentTilemap(tilemap`Paris`)
         scene.setBackgroundImage(assets.image`Paris_BG`)
         Render.move(player_3D, 60)
@@ -146,16 +150,21 @@ controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
         sprites.destroy(Minimap_sprite)
         menu = 0
     } else if (menu == 2) {
-    	
+        menu = 0
+        sprites.destroy(Not_Avalible)
+        tiles.loadMap(Current_tilemap)
+        controller.moveSprite(Player2d, 0, 0)
+        Player2d.setImage(assets.image`Player 3D`)
     }
 })
 function church () {
     Render.setViewMode(ViewMode.tilemapView)
-    Player2d = sprites.create(assets.image`Player_Sprite`, SpriteKind.player_2d)
+    Player2d = sprites.create(assets.image`Player 3D`, SpriteKind.player_2d)
     scene.cameraFollowSprite(Player2d)
     player_3D.setImage(assets.image`Hidden_Player_Sprite`)
     tiles.setCurrentTilemap(tilemap`Spanish_Pavillion`)
 }
+let Not_Avalible: TextSprite = null
 let Current_tilemap: tiles.WorldMap = null
 let Minimap_sprite: Sprite = null
 let myMinimap: minimap.Minimap = null
