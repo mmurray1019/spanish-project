@@ -16,6 +16,49 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`Pavillion_Enter_Location`, fu
 scene.onOverlapTile(SpriteKind.Player, assets.tile`Church_Enter_Location`, function (sprite, location) {
 	
 })
+controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
+    if (menu == 0) {
+        if (Render.isViewMode(ViewMode.raycastingView)) {
+            menu = 1
+            Render.toggleViewMode()
+            Render.move(Render.getRenderSpriteInstance(), 0, 0)
+            scene.setBackgroundImage(assets.image`Blank_Background`)
+            player_3D.setImage(assets.image`Player 3D`)
+            Render.moveWithController(0, 0, 0)
+            myMinimap = minimap.minimap(MinimapScale.Original, 2, 0)
+            Minimap_sprite = sprites.create(minimap.getImage(minimap.minimap(MinimapScale.Quarter, 2, 0)), SpriteKind.Minimap)
+            Minimap_sprite.setStayInScreen(true)
+            myMinimap = minimap.minimap(MinimapScale.Quarter, 0, 0)
+            minimap.includeSprite(myMinimap, player_3D, MinimapSpriteScale.Double)
+            player_3D.setImage(assets.image`Hidden_Player_Sprite`)
+            Minimap_sprite.setImage(minimap.getImage(myMinimap))
+            tiles.setCurrentTilemap(tilemap`Blank_map`)
+        } else if (Render.isViewMode(ViewMode.tilemapView)) {
+            menu = 2
+            Current_tilemap = tiles.getLoadedMap()
+            controller.moveSprite(Player2d, 0, 0)
+            Player2d.setImage(assets.image`Hidden_Player_Sprite`)
+            tiles.setCurrentTilemap(tilemap`Blank_map`)
+            Not_Avalible = textsprite.create("Map Not Avalible", 8, 2)
+            tiles.placeOnTile(Not_Avalible, Player2d.tilemapLocation())
+        }
+    } else if (menu == 1) {
+        player_3D.setImage(assets.image`Hidden_Player_Sprite`)
+        tiles.setCurrentTilemap(tilemap`Paris`)
+        scene.setBackgroundImage(assets.image`Paris_BG`)
+        Render.move(player_3D, 60)
+        Render.moveWithController(2)
+        Render.toggleViewMode()
+        sprites.destroy(Minimap_sprite)
+        menu = 0
+    } else if (menu == 2) {
+        menu = 0
+        sprites.destroy(Not_Avalible)
+        tiles.loadMap(tiles.createMap(tilemap`Spanish_Pavillion`))
+        controller.moveSprite(Player2d, 100, 100)
+        Player2d.setImage(assets.image`Player 3D`)
+    }
+})
 scene.onOverlapTile(SpriteKind.player_2d, assets.tile`wood_floor_exit_location`, function (sprite, location) {
     tiles.setCurrentTilemap(tilemap`Blank_map`)
     if (game.ask("Exit?")) {
@@ -26,6 +69,11 @@ scene.onOverlapTile(SpriteKind.player_2d, assets.tile`wood_floor_exit_location`,
         tiles.placeOnRandomTile(Player2d, assets.tile`wood_floor_enter_location`)
     }
 })
+function Guernica_Pedistal_Cutscene () {
+    story.startCutscene(function () {
+        controller.moveSprite(Player2d, 0, 0)
+    })
+}
 function _3Dify () {
     tiles.placeOnTile(Player2d, tiles.getTileLocation(0, 0))
     Render.setViewMode(ViewMode.raycastingView)
@@ -113,50 +161,8 @@ function pavillion () {
     tiles.placeOnRandomTile(player_3D, assets.tile`Guernica 0-2`)
     scene.setBackgroundImage(assets.image`Blank_Background`)
     tiles.placeOnRandomTile(Player2d, assets.tile`wood_floor_enter_location`)
+    Pavillion_active = 1
 }
-controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (menu == 0) {
-        if (Render.isViewMode(ViewMode.raycastingView)) {
-            menu = 1
-            Render.toggleViewMode()
-            Render.move(Render.getRenderSpriteInstance(), 0, 0)
-            scene.setBackgroundImage(assets.image`Blank_Background`)
-            player_3D.setImage(assets.image`Player 3D`)
-            Render.moveWithController(0, 0, 0)
-            myMinimap = minimap.minimap(MinimapScale.Original, 2, 0)
-            Minimap_sprite = sprites.create(minimap.getImage(minimap.minimap(MinimapScale.Quarter, 2, 0)), SpriteKind.Minimap)
-            Minimap_sprite.setStayInScreen(true)
-            myMinimap = minimap.minimap(MinimapScale.Quarter, 0, 0)
-            minimap.includeSprite(myMinimap, player_3D, MinimapSpriteScale.Double)
-            player_3D.setImage(assets.image`Hidden_Player_Sprite`)
-            Minimap_sprite.setImage(minimap.getImage(myMinimap))
-            tiles.setCurrentTilemap(tilemap`Blank_map`)
-        } else if (Render.isViewMode(ViewMode.tilemapView)) {
-            menu = 2
-            Current_tilemap = tiles.getLoadedMap()
-            controller.moveSprite(Player2d, 0, 0)
-            Player2d.setImage(assets.image`Hidden_Player_Sprite`)
-            tiles.setCurrentTilemap(tilemap`Blank_map`)
-            Not_Avalible = textsprite.create("Map Not Avalible", 8, 2)
-            tiles.placeOnTile(Not_Avalible, Player2d.tilemapLocation())
-        }
-    } else if (menu == 1) {
-        player_3D.setImage(assets.image`Hidden_Player_Sprite`)
-        tiles.setCurrentTilemap(tilemap`Paris`)
-        scene.setBackgroundImage(assets.image`Paris_BG`)
-        Render.move(player_3D, 60)
-        Render.moveWithController(2)
-        Render.toggleViewMode()
-        sprites.destroy(Minimap_sprite)
-        menu = 0
-    } else if (menu == 2) {
-        menu = 0
-        sprites.destroy(Not_Avalible)
-        tiles.loadMap(tiles.createMap(tilemap`Spanish_Pavillion`))
-        controller.moveSprite(Player2d, 100, 100)
-        Player2d.setImage(assets.image`Player 3D`)
-    }
-})
 function church () {
     Render.setViewMode(ViewMode.tilemapView)
     Player2d = sprites.create(assets.image`Player 3D`, SpriteKind.player_2d)
@@ -164,11 +170,14 @@ function church () {
     player_3D.setImage(assets.image`Hidden_Player_Sprite`)
     tiles.setCurrentTilemap(tilemap`Spanish_Pavillion`)
 }
+let textSprite: TextSprite = null
+let A_Press_Indicator = 0
+let Pavillion_active = 0
 let Not_Avalible: TextSprite = null
+let Player2d: Sprite = null
 let Current_tilemap: tiles.WorldMap = null
 let Minimap_sprite: Sprite = null
 let myMinimap: minimap.Minimap = null
-let Player2d: Sprite = null
 let menu = 0
 let player_3D: Sprite = null
 story.startCutscene(function () {
@@ -179,3 +188,52 @@ Render.move(player_3D, 60, -250)
 tiles.setCurrentTilemap(tilemap`Paris`)
 menu = 0
 scene.setBackgroundImage(assets.image`Paris_BG`)
+game.onUpdate(function () {
+    if (A_Press_Indicator == 0 && Render.isViewMode(ViewMode.tilemapView) && ((Player2d.tileKindAt(TileDirection.Left, assets.tile`Guernica_Info_stand`) || (Player2d.tileKindAt(TileDirection.Right, assets.tile`Guernica_Info_stand`) || Player2d.tileKindAt(TileDirection.Center, assets.tile`Guernica_Info_stand`) || Player2d.tileKindAt(TileDirection.Top, assets.tile`Guernica_Info_stand`))) && Pavillion_active == 1)) {
+        A_Press_Indicator = 1
+        textSprite = textsprite.create("")
+        textSprite.setIcon(img`
+            ..........666666666666..........
+            ........6667777777777666........
+            ......66677777777777777666......
+            .....6677777779999777777766.....
+            ....667777779966669977777766....
+            ....677777799668866117777776....
+            ...66777779966877861197777766...
+            ...66777799668677686699777766...
+            ...88777796688888888669777788...
+            ...88777788888888888888777788...
+            ...88977888679999997688877988...
+            ...88977886777777777768877988...
+            ...88997777777777777777779988...
+            ...88799777777777777777711788...
+            ...88679997777777777779117688...
+            ..cc866679999999999999976668cc..
+            .ccbc6666679999999999766666cbcc.
+            .fcbcc66666666666666666666ccbcf.
+            .fcbbcc666666666666666666ccbdcf.
+            .f8bbbccc66666666666666cccbddcf.
+            .f8cbbbbccccccccccccccccbdddbcf.
+            .f8ccbbbbbccccccccccccb111ddccf.
+            .f6ccccbbbddddddddddddd111dcccf.
+            .f6ccccccbbddddddddddddddbbcccf.
+            .f6cccccccccccccbbbbbbbbbdbcccf.
+            ..f6cccccccccbbbbbbbbbbbddbccf..
+            ..f6cccccccccbbbbbbbbbbbddbccf..
+            ..ff6ccccccccbbbbbbbbbbbddbcff..
+            ...ff6cccccccbbbbbbbbbbbddbff...
+            ....ffcccccccbbbbbbbbbbbdbff....
+            ......ffccccbbbbbbbbbbbbff......
+            ........ffffffffffffffff........
+            `)
+        textSprite.setFlag(SpriteFlag.RelativeToCamera, true)
+        textSprite.setPosition(143, 106)
+    } else if (A_Press_Indicator == 1 && Render.isViewMode(ViewMode.tilemapView) && !((Player2d.tileKindAt(TileDirection.Left, assets.tile`Guernica_Info_stand`) || (Player2d.tileKindAt(TileDirection.Right, assets.tile`Guernica_Info_stand`) || Player2d.tileKindAt(TileDirection.Center, assets.tile`Guernica_Info_stand`) || Player2d.tileKindAt(TileDirection.Top, assets.tile`Guernica_Info_stand`))) && Pavillion_active == 1)) {
+        textSprite.setIcon(assets.image`Hidden_Player_Sprite`)
+        sprites.destroy(textSprite)
+        A_Press_Indicator = 0
+    }
+    if (A_Press_Indicator == 1 && controller.A.isPressed()) {
+        Guernica_Pedistal_Cutscene()
+    }
+})

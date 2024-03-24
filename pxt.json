@@ -10,7 +10,9 @@
         "arcade-story": "github:microsoft/arcade-storytelling#v1.0.3",
         "arcade-camera-offset": "github:riknoll/arcade-camera-offset#50dcab790691a38799aa99390f9cced2d62fbc21",
         "tilemaps": "github:microsoft/pxt-tilemaps#v1.12.0",
-        "arcade-text": "github:microsoft/arcade-text#v1.3.0"
+        "arcade-text": "github:microsoft/arcade-text#v1.3.0",
+        "storyboard": "*",
+        "Color Fading": "github:jwunderl/pxt-color#v0.2.3"
     },
     "files": [
         "main.blocks",
