@@ -1,6 +1,7 @@
 namespace SpriteKind {
     export const Minimap = SpriteKind.create()
     export const player_2d = SpriteKind.create()
+    export const Sprite_Helper = SpriteKind.create()
 }
 scene.onOverlapTile(SpriteKind.Player, assets.tile`Pavillion_Enter_Location`, function (sprite, location) {
     tiles.setCurrentTilemap(tilemap`Blank_map`)
@@ -18,12 +19,13 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`Church_Enter_Location`, funct
 })
 controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
     if (menu == 0) {
+        Paula.setFlag(SpriteFlag.Invisible, true)
         if (Render.isViewMode(ViewMode.raycastingView)) {
             menu = 1
             Render.toggleViewMode()
             Render.move(Render.getRenderSpriteInstance(), 0, 0)
             scene.setBackgroundImage(assets.image`Blank_Background`)
-            player_3D.setImage(assets.image`Player 3D`)
+            player_3D.setImage(assets.image`Luis`)
             Render.moveWithController(0, 0, 0)
             myMinimap = minimap.minimap(MinimapScale.Original, 2, 0)
             Minimap_sprite = sprites.create(minimap.getImage(minimap.minimap(MinimapScale.Quarter, 2, 0)), SpriteKind.Minimap)
@@ -43,6 +45,7 @@ controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
             tiles.placeOnTile(Not_Avalible, Player2d.tilemapLocation())
         }
     } else if (menu == 1) {
+        Paula.setFlag(SpriteFlag.Invisible, false)
         player_3D.setImage(assets.image`Hidden_Player_Sprite`)
         tiles.setCurrentTilemap(tilemap`Paris`)
         scene.setBackgroundImage(assets.image`Paris_BG`)
@@ -52,11 +55,12 @@ controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
         sprites.destroy(Minimap_sprite)
         menu = 0
     } else if (menu == 2) {
+        Paula.setFlag(SpriteFlag.Invisible, false)
         menu = 0
         sprites.destroy(Not_Avalible)
         tiles.loadMap(tiles.createMap(tilemap`Spanish_Pavillion`))
         controller.moveSprite(Player2d, 100, 100)
-        Player2d.setImage(assets.image`Player 3D`)
+        Player2d.setImage(assets.image`Luis`)
     }
 })
 scene.onOverlapTile(SpriteKind.player_2d, assets.tile`wood_floor_exit_location`, function (sprite, location) {
@@ -70,8 +74,39 @@ scene.onOverlapTile(SpriteKind.player_2d, assets.tile`wood_floor_exit_location`,
     }
 })
 function Guernica_Pedistal_Cutscene () {
+    cutscene_activator = 1
+    tiles.loadMap(tiles.createMap(tilemap`Spanish_Pavillion`))
     story.startCutscene(function () {
         controller.moveSprite(Player2d, 0, 0)
+        Speech_talking_indicator = textsprite.create("Paula", 6, 1)
+        Speech = textsprite.create("Es Guernica!", 12, 1)
+        Speech_talking_indicator.setStayInScreen(true)
+        Speech.setStayInScreen(true)
+        Speech_talking_indicator.setFlag(SpriteFlag.Ghost, true)
+        Speech.setFlag(SpriteFlag.Ghost, false)
+        Speech.z = -2
+        tiles.placeOnTile(Speech_talking_indicator, tiles.getTileLocation(1, 3))
+        tiles.placeOnTile(Speech, tiles.getTileLocation(1, 4))
+        pause(2000)
+        Speech.setText("Yo Veo Simbolos")
+        pause(5000)
+        Speech.setText("Guernica tiene information")
+        Speech_line_2 = textsprite.create("de la lanza!", 12, 1)
+        Speech_line_2.setStayInScreen(true)
+        tiles.placeOnTile(Speech_line_2, tiles.getTileLocation(1, 5))
+        pause(5000)
+        Speech.setText("Donde esta una casa ")
+        Speech_line_2.setText("grande?")
+        pause(5000)
+        Speech_talking_indicator.setText("Luis")
+        Speech.setText("Es la Sante-Chapelle! ")
+        Speech_line_2.setText("Vamos!")
+        pause(5000)
+        sprites.destroy(Speech_talking_indicator)
+        sprites.destroy(Speech)
+        sprites.destroy(Speech_line_2)
+        controller.moveSprite(Player2d, 100, 100)
+        cutscene_activator = 0
     })
 }
 function _3Dify () {
@@ -84,10 +119,13 @@ function _3Dify () {
     tiles.setCurrentTilemap(tilemap`Paris`)
     scene.cameraFollowSprite(player_3D)
     Render.setSpriteAttribute(player_3D, RCSpriteAttribute.ZOffset, -11)
+    tiles.placeOnTile(Paula, tiles.locationInDirection(tiles.locationOfSprite(player_3D), CollisionDirection.Left))
+    Paula.setScale(0.5, ScaleAnchor.Bottom)
 }
 function pavillion () {
+    Paula.setScale(1, ScaleAnchor.Bottom)
     Render.setViewMode(ViewMode.tilemapView)
-    Player2d = sprites.create(assets.image`Player 3D`, SpriteKind.player_2d)
+    Player2d = sprites.create(assets.image`Luis`, SpriteKind.player_2d)
     controller.moveSprite(Player2d)
     cameraOffsetScene.cameraFollowWithOffset(Player2d, 0, -30)
     player_3D.setImage(assets.image`Hidden_Player_Sprite`)
@@ -161,11 +199,12 @@ function pavillion () {
     tiles.placeOnRandomTile(player_3D, assets.tile`Guernica 0-2`)
     scene.setBackgroundImage(assets.image`Blank_Background`)
     tiles.placeOnRandomTile(Player2d, assets.tile`wood_floor_enter_location`)
+    tiles.placeOnRandomTile(Paula, assets.tile`wood_floor_exit_location`)
     Pavillion_active = 1
 }
 function church () {
     Render.setViewMode(ViewMode.tilemapView)
-    Player2d = sprites.create(assets.image`Player 3D`, SpriteKind.player_2d)
+    Player2d = sprites.create(assets.image`Luis`, SpriteKind.player_2d)
     scene.cameraFollowSprite(Player2d)
     player_3D.setImage(assets.image`Hidden_Player_Sprite`)
     tiles.setCurrentTilemap(tilemap`Spanish_Pavillion`)
@@ -173,11 +212,16 @@ function church () {
 let textSprite: TextSprite = null
 let A_Press_Indicator = 0
 let Pavillion_active = 0
+let Speech_line_2: TextSprite = null
+let Speech: TextSprite = null
+let Speech_talking_indicator: TextSprite = null
+let cutscene_activator = 0
 let Not_Avalible: TextSprite = null
 let Player2d: Sprite = null
 let Current_tilemap: tiles.WorldMap = null
 let Minimap_sprite: Sprite = null
 let myMinimap: minimap.Minimap = null
+let Paula: Sprite = null
 let menu = 0
 let player_3D: Sprite = null
 story.startCutscene(function () {
@@ -188,7 +232,10 @@ Render.move(player_3D, 60, -250)
 tiles.setCurrentTilemap(tilemap`Paris`)
 menu = 0
 scene.setBackgroundImage(assets.image`Paris_BG`)
-let Paula = sprites.create(assets.image`Paula`, SpriteKind.Player)
+let Paula_Follower = sprites.create(assets.image`Hidden_Player_Sprite`, SpriteKind.Sprite_Helper)
+Paula = sprites.create(assets.image`Paula`, SpriteKind.Player)
+Paula.follow(Paula_Follower, 40)
+Paula.setScale(0.5, ScaleAnchor.Bottom)
 game.onUpdate(function () {
     if (A_Press_Indicator == 0 && Render.isViewMode(ViewMode.tilemapView) && ((Player2d.tileKindAt(TileDirection.Left, assets.tile`Guernica_Info_stand`) || (Player2d.tileKindAt(TileDirection.Right, assets.tile`Guernica_Info_stand`) || Player2d.tileKindAt(TileDirection.Center, assets.tile`Guernica_Info_stand`) || Player2d.tileKindAt(TileDirection.Top, assets.tile`Guernica_Info_stand`))) && Pavillion_active == 1)) {
         A_Press_Indicator = 1
@@ -234,7 +281,12 @@ game.onUpdate(function () {
         sprites.destroy(textSprite)
         A_Press_Indicator = 0
     }
-    if (A_Press_Indicator == 1 && controller.A.isPressed()) {
+    if (cutscene_activator == 0 && (A_Press_Indicator == 1 && controller.A.isPressed())) {
         Guernica_Pedistal_Cutscene()
+    }
+    if (Render.isViewMode(ViewMode.raycastingView)) {
+        tiles.placeOnTile(Paula_Follower, tiles.locationInDirection(tiles.locationOfSprite(player_3D), CollisionDirection.Left))
+    } else if (Render.isViewMode(ViewMode.tilemapView)) {
+        tiles.placeOnTile(Paula_Follower, tiles.locationInDirection(tiles.locationOfSprite(Player2d), CollisionDirection.Bottom))
     }
 })
