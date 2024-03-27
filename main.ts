@@ -188,6 +188,7 @@ Render.move(player_3D, 60, -250)
 tiles.setCurrentTilemap(tilemap`Paris`)
 menu = 0
 scene.setBackgroundImage(assets.image`Paris_BG`)
+let Paula = sprites.create(assets.image`Paula`, SpriteKind.Player)
 game.onUpdate(function () {
     if (A_Press_Indicator == 0 && Render.isViewMode(ViewMode.tilemapView) && ((Player2d.tileKindAt(TileDirection.Left, assets.tile`Guernica_Info_stand`) || (Player2d.tileKindAt(TileDirection.Right, assets.tile`Guernica_Info_stand`) || Player2d.tileKindAt(TileDirection.Center, assets.tile`Guernica_Info_stand`) || Player2d.tileKindAt(TileDirection.Top, assets.tile`Guernica_Info_stand`))) && Pavillion_active == 1)) {
         A_Press_Indicator = 1

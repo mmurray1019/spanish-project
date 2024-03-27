@@ -29,6 +29,11 @@
         "mimeType": "image/x-mkcd-f4",
         "displayName": "Player 3D"
     },
+    "image6": {
+        "data": "hwQOABAAAAAAAPD/DwAAAADwX7X770QAAF9VtbtO/Q/wVVX89P+8D/BVtbzRbjnzX1VN9N+UuftfVUtE3ZQ5s19VS0TdlLm7X1VN9N+UOfPwVbW80W658/BVVfz0/7wPAF9VtbtO/Q8A8F+1++9EAAAA8P8PAAAA",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "Paula"
+    },
     "*": {
         "mimeType": "image/x-mkcd-f4",
         "dataEncoding": "base64",
