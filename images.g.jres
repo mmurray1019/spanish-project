@@ -34,6 +34,11 @@
         "mimeType": "image/x-mkcd-f4",
         "displayName": "Luis"
     },
+    "image7": {
+        "data": "hwQQABAAAADu7u7u7u7u7u7u7u7u7u7u7u7u7u7e3e0REREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREe7u7u7u7u7u7e7u7u7u7t3u7u7u7u7u7g==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "Column_placeholder"
+    },
     "*": {
         "mimeType": "image/x-mkcd-f4",
         "dataEncoding": "base64",

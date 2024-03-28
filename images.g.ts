@@ -454,6 +454,25 @@ f b b 4 1 f d d f 1 4 b b f
 . . . . . f f f f f f . . . . . 
 . . . . . f f . . f f . . . . . 
 `;
+            case "image7":
+            case "Column_placeholder":return img`
+e e e 1 1 1 1 1 1 1 1 1 1 e d e 
+e e e 1 1 1 1 1 1 1 1 1 1 e e e 
+e e e 1 1 1 1 1 1 1 1 1 1 e e e 
+e e e 1 1 1 1 1 1 1 1 1 1 e e e 
+e e e 1 1 1 1 1 1 1 1 1 1 e e e 
+e e e 1 1 1 1 1 1 1 1 1 1 e e e 
+e e e 1 1 1 1 1 1 1 1 1 1 e e e 
+e e e 1 1 1 1 1 1 1 1 1 1 e e e 
+e e e 1 1 1 1 1 1 1 1 1 1 e e e 
+e e e 1 1 1 1 1 1 1 1 1 1 e e e 
+e e e 1 1 1 1 1 1 1 1 1 1 e e e 
+e e d 1 1 1 1 1 1 1 1 1 1 e e e 
+e e d 1 1 1 1 1 1 1 1 1 1 e e e 
+e e d 1 1 1 1 1 1 1 1 1 1 e e e 
+e e d 1 1 1 1 1 1 1 1 1 1 e d e 
+e e e 1 1 1 1 1 1 1 1 1 1 e d e 
+`;
         }
         return null;
     })

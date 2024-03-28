@@ -2,11 +2,13 @@ namespace SpriteKind {
     export const Minimap = SpriteKind.create()
     export const player_2d = SpriteKind.create()
     export const Sprite_Helper = SpriteKind.create()
+    export const Placeholder = SpriteKind.create()
 }
 scene.onOverlapTile(SpriteKind.Player, assets.tile`Pavillion_Enter_Location`, function (sprite, location) {
     tiles.setCurrentTilemap(tilemap`Blank_map`)
     Render.setViewMode(ViewMode.tilemapView)
     if (game.ask("Enter?")) {
+        _2dify()
         pavillion()
     } else {
         Render.setViewMode(ViewMode.raycastingView)
@@ -15,8 +17,26 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`Pavillion_Enter_Location`, fu
     }
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`Church_Enter_Location`, function (sprite, location) {
-	
+    tiles.setCurrentTilemap(tilemap`Blank_map`)
+    Render.setViewMode(ViewMode.tilemapView)
+    if (game.ask("Enter?")) {
+        _2dify()
+        church()
+    } else {
+        Render.setViewMode(ViewMode.raycastingView)
+        tiles.setCurrentTilemap(tilemap`Paris`)
+        tiles.placeOnRandomTile(player_3D, assets.tile`church_exit_location`)
+    }
 })
+function _2dify () {
+    Paula.setScale(0.9, ScaleAnchor.Bottom)
+    Render.setViewMode(ViewMode.tilemapView)
+    Player2d = sprites.create(assets.image`Luis`, SpriteKind.player_2d)
+    controller.moveSprite(Player2d)
+    cameraOffsetScene.cameraFollowWithOffset(Player2d, 0, -30)
+    player_3D.setImage(assets.image`Hidden_Player_Sprite`)
+    player_3D.setFlag(SpriteFlag.Invisible, true)
+}
 controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
     if (menu == 0) {
         Paula.setFlag(SpriteFlag.Invisible, true)
@@ -123,13 +143,6 @@ function _3Dify () {
     Paula.setScale(0.5, ScaleAnchor.Bottom)
 }
 function pavillion () {
-    Paula.setScale(1, ScaleAnchor.Bottom)
-    Render.setViewMode(ViewMode.tilemapView)
-    Player2d = sprites.create(assets.image`Luis`, SpriteKind.player_2d)
-    controller.moveSprite(Player2d)
-    cameraOffsetScene.cameraFollowWithOffset(Player2d, 0, -30)
-    player_3D.setImage(assets.image`Hidden_Player_Sprite`)
-    player_3D.setFlag(SpriteFlag.Invisible, true)
     // let mySprite20240315T170412053Z = sprites.create(img`fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffcccccccccccccccccccccc
     // cfffffffffffffffffffffffffffffffffffcccffffffffffffffffffffffffffffffffffffffcffffffffffffffffffffffcbcffcbcccbbcccbccccccccccf
     // cccffffffffffffffffffffffffffffffffcfffffcbbbdddbbfffffffffffffffffffffffccccccccfcccccccffffffffffffcdbbcbbbccbbcbbcccccccccff
@@ -207,20 +220,29 @@ function church () {
     Player2d = sprites.create(assets.image`Luis`, SpriteKind.player_2d)
     scene.cameraFollowSprite(Player2d)
     player_3D.setImage(assets.image`Hidden_Player_Sprite`)
-    tiles.setCurrentTilemap(tilemap`Spanish_Pavillion`)
+    tiles.setCurrentTilemap(tilemap`Sante-Chapelle`)
+    for (let value of tiles.getTilesByType(assets.tile`Column`)) {
+        mySprite = sprites.create(assets.image`Column_placeholder`, SpriteKind.Placeholder)
+        tiles.placeOnTile(mySprite, value)
+        mySprite.z = 2
+    }
 }
+/**
+ * Don't forget to add people in paris
+ */
 let textSprite: TextSprite = null
 let A_Press_Indicator = 0
+let mySprite: Sprite = null
 let Pavillion_active = 0
 let Speech_line_2: TextSprite = null
 let Speech: TextSprite = null
 let Speech_talking_indicator: TextSprite = null
 let cutscene_activator = 0
 let Not_Avalible: TextSprite = null
-let Player2d: Sprite = null
 let Current_tilemap: tiles.WorldMap = null
 let Minimap_sprite: Sprite = null
 let myMinimap: minimap.Minimap = null
+let Player2d: Sprite = null
 let Paula: Sprite = null
 let menu = 0
 let player_3D: Sprite = null
