@@ -391,31 +391,6 @@ bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
 1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
 1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
 `;
-            case "XjTC+aN,p0q,9KhF6C2@":
-            case "Javier":return img`
-. . . . f f f f . . . . 
-. . f f e e e e f f . . 
-. f f e e e e e e f f . 
-. f f e e e e e e f f . 
-f f f f 4 e e e f f f f 
-f f f 4 4 4 e e f f f f 
-f f f 4 4 4 e e f f f f 
-f f f 4 4 4 4 e e f f f 
-f 4 e 4 4 4 4 4 4 e 4 f 
-f 4 e 4 4 4 4 4 4 e 4 f 
-f 4 4 f f 4 4 f f 4 4 f 
-f e 4 d d d d d d 4 e f 
-. f e d d b b d d e f . 
-. f e d d b b d d e f . 
-. f f e 4 4 4 4 e f f . 
-e 4 f b 1 1 1 1 b f 4 e 
-e 4 f b 1 1 1 1 b f 4 e 
-4 d f 1 1 1 1 1 1 f d 4 
-4 4 f 6 6 6 6 6 6 f 4 4 
-4 4 f 6 6 6 6 6 6 f 4 4 
-. . . f f f f f f . . . 
-. . . f f . . f f . . . 
-`;
             case "image6":
             case "Paula":return img`
 . . . . . f f f f . . . . . 
@@ -455,7 +430,26 @@ f b b 4 1 f d d f 1 4 b b f
 . . . . . f f . . f f . . . . . 
 `;
             case "image7":
-            case "Column_placeholder":return img`
+            case "Cat_column_placeholder":return img`
+e e e f 1 f 1 1 f 1 f 1 1 e d e 
+e e e f f f 1 1 f f f 1 1 e e e 
+e e e 5 f 5 1 1 5 f 5 1 1 e e e 
+e e e f f f 1 f f f f 1 f e e e 
+e e e 1 f f f f 1 f f f f e e e 
+e e e 1 b b f f 1 b b f f e e e 
+e e e 1 1 1 1 1 1 1 1 1 1 e e e 
+e e e f 1 f 1 1 f 1 f 1 1 e e e 
+e e e f f f 1 1 f f f 1 1 e e e 
+e e e 5 f 5 1 1 5 f 5 1 1 e e e 
+e e e f f f 1 f f f f 1 f e e e 
+e e d 1 f f f f 1 f f f f e e e 
+e e d 1 b b f f 1 b b f f e e e 
+e e d 1 1 1 1 1 1 1 1 1 1 e e e 
+e e d 1 1 1 1 1 1 1 1 1 1 e d e 
+e e e 1 1 1 1 1 1 1 1 1 1 e d e 
+`;
+            case "Y8{*oS,*B-V0I=-jQu]u":
+            case "Column_Placeholder":return img`
 e e e 1 1 1 1 1 1 1 1 1 1 e d e 
 e e e 1 1 1 1 1 1 1 1 1 1 e e e 
 e e e 1 1 1 1 1 1 1 1 1 1 e e e 
@@ -472,6 +466,69 @@ e e d 1 1 1 1 1 1 1 1 1 1 e e e
 e e d 1 1 1 1 1 1 1 1 1 1 e e e 
 e e d 1 1 1 1 1 1 1 1 1 1 e d e 
 e e e 1 1 1 1 1 1 1 1 1 1 e d e 
+`;
+            case "XjTC+aN,p0q,9KhF6C2@":
+            case "Javier":return img`
+. . . . f f f f . . . . 
+. . f f e e e e f f . . 
+. f f e e e e e e f f . 
+. f f e e e e e e f f . 
+f f f f 4 e e e f f f f 
+f f f 4 4 4 e e f f f f 
+f f f 4 4 4 e e f f f f 
+f f f 4 4 4 4 e e f f f 
+f 4 e 4 4 4 4 4 4 e 4 f 
+f 4 e 4 4 4 4 4 4 e 4 f 
+f 4 4 f f 4 4 f f 4 4 f 
+f e 4 d d d d d d 4 e f 
+. f e d d b b d d e f . 
+. f e d d b b d d e f . 
+. f f e 4 4 4 4 e f f . 
+e 4 f b 1 1 1 1 b f 4 e 
+e 4 f b 1 1 1 1 b f 4 e 
+4 d f 1 1 1 1 1 1 f d 4 
+4 4 f 6 6 6 6 6 6 f 4 4 
+4 4 f 6 6 6 6 6 6 f 4 4 
+. . . f f f f f f . . . 
+. . . f f . . f f . . . 
+`;
+            case "image8":
+            case "Mario":return img`
+. . . e e e e e e . . . . 
+. . f e 4 4 4 4 e f . . . 
+. e e e 4 4 4 4 e e e . . 
+e e e e 4 4 4 4 e e e e . 
+f f f c f f f f f f f c . 
+c c c f f f e e f f c c . 
+f f f f f e e f f c c f . 
+f f f b f e e f b f f f . 
+. f 4 1 f 4 4 f 1 4 f . . 
+. f e 4 4 4 4 4 4 e f . . 
+. f f f e e e e f f f . . 
+f e f b 7 7 7 7 b f e f . 
+e 4 f 7 7 7 7 7 7 f 4 e . 
+e e f 6 6 6 6 6 6 f e e . 
+. . . f f f f f f . . . . 
+. . . f f . . f f . . . . 
+`;
+            case "image9":
+            case "civillian_1":return img`
+. f f f . f f f f . f f f . 
+f f f f f c c c c f f f f f 
+f f f f b c c c c b f f f f 
+f f f c 3 c c c c 3 c f f f 
+. f 3 3 c c c c c c 3 3 f . 
+. f c c c c 4 4 c c c c f . 
+. f f c c 4 4 4 4 c c f f . 
+. f f f b f 4 4 f b f f f . 
+. f f 4 1 f d d f 1 4 f f . 
+. . f f d d d d d d f f . . 
+. . e f e 4 4 4 4 e f e . . 
+. e 4 f b 3 3 3 3 b f 4 e . 
+. 4 d f 3 3 3 3 3 3 c d 4 . 
+. 4 4 f 6 6 6 6 6 6 f 4 4 . 
+. . . . f f f f f f . . . . 
+. . . . f f . . f f . . . . 
 `;
         }
         return null;

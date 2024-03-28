@@ -19,11 +19,6 @@
         "mimeType": "image/x-mkcd-f4",
         "displayName": "Guernica_BG"
     },
-    "XjTC+aN,p0q,9KhF6C2@": {
-        "data": "hwQMABYAAAAAAP////8A4E5EAAAA////ROT/T9REAADw////7kTu////AADw7k9ERN/dvhtm/wDv7kRERN/dFBFm/wDv7k5ERNS7FBFmDwDv7u5ORNS7FBFmDwDv7u7uRN/dFBFm/wDw7v/vRN/dvhtm/wDw////7kTu////AAAA////ROT/T9REAAAAAP////8A4E5EAAA=",
-        "mimeType": "image/x-mkcd-f4",
-        "displayName": "Javier"
-    },
     "image6": {
         "data": "hwQOABAAAAAAAPD/DwAAAADwX7X770QAAF9VtbtO/Q/wVVX89P+8D/BVtbzRbjnzX1VN9N+UuftfVUtE3ZQ5s19VS0TdlLm7X1VN9N+UOfPwVbW80W658/BVVfz0/7wPAF9VtbtO/Q8A8F+1++9EAAAA8P8PAAAA",
         "mimeType": "image/x-mkcd-f4",
@@ -35,9 +30,29 @@
         "displayName": "Luis"
     },
     "image7": {
+        "data": "hwQQABAAAADu7u7u7u7u7u7u7u7u7u7u7u7u7u7e3e3/9RHxXx8REfH/vxH//xsR//W/8V//GxEREf8REfEfERHx/xER/x8R//UR8V8fERHx/78R//8bEf/1v/Ff/xsRERH/ERHxHxER8f8REf8fEe7u7u7u7u7u7e7u7u7u7t3u7u7u7u7u7g==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "Cat_column_placeholder"
+    },
+    "Y8{*oS,*B-V0I=-jQu]u": {
         "data": "hwQQABAAAADu7u7u7u7u7u7u7u7u7u7u7u7u7u7e3e0REREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREREe7u7u7u7u7u7e7u7u7u7t3u7u7u7u7u7g==",
         "mimeType": "image/x-mkcd-f4",
-        "displayName": "Column_placeholder"
+        "displayName": "Column_Placeholder"
+    },
+    "XjTC+aN,p0q,9KhF6C2@": {
+        "data": "hwQMABYAAAAAAP////8A4E5EAAAA////ROT/T9REAADw////7kTu////AADw7k9ERN/dvhtm/wDv7kRERN/dFBFm/wDv7k5ERNS7FBFmDwDv7u5ORNS7FBFmDwDv7u7uRN/dFBFm/wDw7v/vRN/dvhtm/wDw////7kTu////AAAA////ROT/T9REAAAAAP////8A4E5EAAA=",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "Javier"
+    },
+    "image8": {
+        "data": "hwQNABAAAAAA4M//APDuAADuz///7+QA8O7P/+T//wDu7vy/Qb9n/05E//9Pfmf/TkT/7kR+Zw9ORO/uRH5nD05E7/9Pfmf/7u7/v0G/Z//w7v/85P//AADuz/z/7+QAAODM/wDw7gAAAAAAAAAAAA==",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "Mario"
+    },
+    "image9": {
+        "data": "hwQOABAAAADw/wAAAAAAAP////8P4EQA///D//9OTQD/z8P89P//APA7zLzRvmP/z8zM9N80Y//PzExE3TRjD8/MTETdNGMPz8zM9N80Y//wO8y80b5j///Pw/z0//wA///D//9OTQD/////D+BEAPD/AAAAAAAA",
+        "mimeType": "image/x-mkcd-f4",
+        "displayName": "civillian_1"
     },
     "*": {
         "mimeType": "image/x-mkcd-f4",
