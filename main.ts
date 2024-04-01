@@ -141,63 +141,6 @@ function Guernica_Pedistal_Cutscene () {
         cutscene_activator = 0
     })
 }
-function Paris_civillians () {
-    mySprite2 = sprites.create(assets.image`civillian_1`, SpriteKind.civillian)
-    mySprite3 = sprites.create(img`
-        . . . . . . f f f . . . . . . . 
-        . . . . . f f f f f f . . . . . 
-        . . . . f 1 6 6 6 1 6 f . . . . 
-        . . . f 1 6 6 6 6 6 1 6 f . . . 
-        . . . f 6 6 f f f f 6 1 f . . . 
-        . . . f 6 f f d d f f 6 f . . . 
-        . . f 6 f d f d d f d f 6 f . . 
-        . . f 6 f d 3 d d 3 d f 6 f . . 
-        . . f 6 6 f d d d d f 6 6 f . . 
-        . f 6 6 f 3 f f f f 3 f 6 6 f . 
-        . . f f d 3 5 3 3 5 3 d f f . . 
-        . . f d d f 3 5 5 3 f d d f . . 
-        . . . f f 3 3 3 3 3 3 f f . . . 
-        . . . f 3 3 5 3 3 5 3 3 f . . . 
-        . . . f f f f f f f f f f . . . 
-        . . . . . f f . . f f . . . . . 
-        `, SpriteKind.Player)
-    mySprite4 = sprites.create(img`
-        . . . . . . . c c c . . . . . . 
-        . . . . . . c b 5 c . . . . . . 
-        . . . . c c c 5 5 c c c . . . . 
-        . . c c b c 5 5 5 5 c c c c . . 
-        . c b b 5 b 5 5 5 5 b 5 b b c . 
-        . c b 5 5 b b 5 5 b b 5 5 b c . 
-        . . f 5 5 5 b b b b 5 5 5 c . . 
-        . . f f 5 5 5 5 5 5 5 5 f f . . 
-        . . f f f b f e e f b f f f . . 
-        . . f f f 1 f b b f 1 f f f . . 
-        . . . f f b b b b b b f f . . . 
-        . . . e e f e e e e f e e . . . 
-        . . e b c b 5 b b 5 b f b e . . 
-        . . e e f 5 5 5 5 5 5 f e e . . 
-        . . . . c b 5 5 5 5 b c . . . . 
-        . . . . . f f f f f f . . . . . 
-        `, SpriteKind.Player)
-    mySprite5 = sprites.create(img`
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        . . . . . . . . . . . . . . . . 
-        `, SpriteKind.Player)
-}
 function _3Dify () {
     sprites.destroyAllSpritesOfKind(SpriteKind.Placeholder)
     tiles.placeOnTile(Player2d, tiles.getTileLocation(0, 0))
@@ -221,6 +164,17 @@ function pavillion () {
     tiles.placeOnRandomTile(Paula, assets.tile`wood_floor_exit_location`)
     Pavillion_active = 1
 }
+scene.onOverlapTile(SpriteKind.Player, assets.tile`exit_placeholder`, function (sprite, location) {
+    tiles.setCurrentTilemap(tilemap`Blank_map`)
+    Render.setViewMode(ViewMode.tilemapView)
+    if (game.ask("Va a Barcelona?")) {
+    	
+    } else {
+        Render.setViewMode(ViewMode.raycastingView)
+        tiles.setCurrentTilemap(tilemap`Paris`)
+        tiles.placeOnRandomTile(player_3D, assets.tile`enter_placeholder`)
+    }
+})
 function church () {
     tiles.setCurrentTilemap(tilemap`Sante-Chapelle`)
     tiles.placeOnRandomTile(Paula, assets.tile`wood_floor_exit_location`)
@@ -237,16 +191,12 @@ function church () {
     }
     scene.setBackgroundImage(assets.image`Blank_Background`)
 }
-/**
- * Don't forget to add people in paris
- */
+function Barcelona () {
+    tiles.setCurrentTilemap(tilemap`level6`)
+}
 let textSprite: TextSprite = null
 let A_Press_Indicator = 0
 let mySprite: Sprite = null
-let mySprite5: Sprite = null
-let mySprite4: Sprite = null
-let mySprite3: Sprite = null
-let mySprite2: Sprite = null
 let Speech_line_2: TextSprite = null
 let Speech: TextSprite = null
 let Speech_talking_indicator: TextSprite = null
@@ -270,58 +220,15 @@ tiles.setCurrentTilemap(tilemap`Paris`)
 menu = 0
 scene.setBackgroundImage(assets.image`Paris_BG`)
 Paula_Follower = sprites.create(assets.image`Hidden_Player_Sprite`, SpriteKind.Sprite_Helper)
-let Enemy_follower = sprites.create(assets.image`Hidden_Player_Sprite`, SpriteKind.Sprite_Helper)
-let Enemy_follower_2 = sprites.create(assets.image`Hidden_Player_Sprite`, SpriteKind.Sprite_Helper)
 Paula = sprites.create(assets.image`Paula`, SpriteKind.Paula_sprite)
-let Mario = sprites.create(assets.image`Mario`, SpriteKind.Character)
-let Javier = sprites.create(assets.image`Javier`, SpriteKind.Character)
 Paula.follow(Paula_Follower, 40)
-Mario.follow(Enemy_follower_2, 40)
-Javier.follow(Enemy_follower, 60)
 Paula.setScale(0.5, ScaleAnchor.Bottom)
-Mario.setScale(0.4, ScaleAnchor.Bottom)
-Javier.setScale(0.7, ScaleAnchor.Bottom)
-Enemy_follower.setFlag(SpriteFlag.Invisible, true)
-Enemy_follower_2.setFlag(SpriteFlag.Invisible, true)
 Paula_Follower.setFlag(SpriteFlag.Invisible, true)
 game.onUpdate(function () {
     if (Render.isViewMode(ViewMode.tilemapView) && (A_Press_Indicator == 0 && tiles.tileAtLocationEquals(Player2d.tilemapLocation(), assets.tile`A_indicator_overlap`))) {
         A_Press_Indicator = 1
         textSprite = textsprite.create("")
-        textSprite.setIcon(img`
-            ..........666666666666..........
-            ........6667777777777666........
-            ......66677777777777777666......
-            .....6677777779999777777766.....
-            ....667777779966669977777766....
-            ....677777799668866117777776....
-            ...66777779966877861197777766...
-            ...66777799668677686699777766...
-            ...88777796688888888669777788...
-            ...88777788888888888888777788...
-            ...88977888679999997688877988...
-            ...88977886777777777768877988...
-            ...88997777777777777777779988...
-            ...88799777777777777777711788...
-            ...88679997777777777779117688...
-            ..cc866679999999999999976668cc..
-            .ccbc6666679999999999766666cbcc.
-            .fcbcc66666666666666666666ccbcf.
-            .fcbbcc666666666666666666ccbdcf.
-            .f8bbbccc66666666666666cccbddcf.
-            .f8cbbbbccccccccccccccccbdddbcf.
-            .f8ccbbbbbccccccccccccb111ddccf.
-            .f6ccccbbbddddddddddddd111dcccf.
-            .f6ccccccbbddddddddddddddbbcccf.
-            .f6cccccccccccccbbbbbbbbbdbcccf.
-            ..f6cccccccccbbbbbbbbbbbddbccf..
-            ..f6cccccccccbbbbbbbbbbbddbccf..
-            ..ff6ccccccccbbbbbbbbbbbddbcff..
-            ...ff6cccccccbbbbbbbbbbbddbff...
-            ....ffcccccccbbbbbbbbbbbdbff....
-            ......ffccccbbbbbbbbbbbbff......
-            ........ffffffffffffffff........
-            `)
+        textSprite.setIcon(assets.image`A`)
         textSprite.setFlag(SpriteFlag.RelativeToCamera, true)
         textSprite.setPosition(143, 106)
     } else if (Render.isViewMode(ViewMode.tilemapView) && (A_Press_Indicator == 1 && !(tiles.tileAtLocationEquals(Player2d.tilemapLocation(), assets.tile`A_indicator_overlap`)))) {
@@ -338,17 +245,7 @@ game.onUpdate(function () {
     }
     if (Render.isViewMode(ViewMode.raycastingView)) {
         tiles.placeOnTile(Paula_Follower, tiles.locationInDirection(tiles.locationOfSprite(player_3D), CollisionDirection.Left))
-        tiles.placeOnTile(Enemy_follower, tiles.locationInDirection(tiles.locationInDirection(tiles.locationInDirection(tiles.locationOfSprite(player_3D), CollisionDirection.Right), CollisionDirection.Right), CollisionDirection.Right))
-        tiles.placeOnTile(Enemy_follower_2, tiles.locationInDirection(tiles.locationInDirection(tiles.locationOfSprite(player_3D), CollisionDirection.Right), CollisionDirection.Right))
-        Mario.follow(Enemy_follower_2, 40)
-        Javier.follow(Enemy_follower, 60)
-        Mario.setFlag(SpriteFlag.Invisible, false)
-        Javier.setFlag(SpriteFlag.Invisible, false)
     } else if (Render.isViewMode(ViewMode.tilemapView)) {
         tiles.placeOnTile(Paula_Follower, tiles.locationInDirection(tiles.locationOfSprite(Player2d), CollisionDirection.Bottom))
-        Mario.follow(Enemy_follower_2, 0)
-        Mario.setFlag(SpriteFlag.Invisible, true)
-        Javier.setFlag(SpriteFlag.Invisible, true)
-        Javier.follow(Enemy_follower, 0)
     }
 })
