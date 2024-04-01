@@ -150,6 +150,22 @@ namespace myTiles {
     export const tile74 = image.ofBuffer(hex``);
     //% fixedInstance jres blockIdentity=images._tile
     export const tile71 = image.ofBuffer(hex``);
+    //% fixedInstance jres blockIdentity=images._tile
+    export const tile41 = image.ofBuffer(hex``);
+    //% fixedInstance jres blockIdentity=images._tile
+    export const tile77 = image.ofBuffer(hex``);
+    //% fixedInstance jres blockIdentity=images._tile
+    export const tile78 = image.ofBuffer(hex``);
+    //% fixedInstance jres blockIdentity=images._tile
+    export const tile79 = image.ofBuffer(hex``);
+    //% fixedInstance jres blockIdentity=images._tile
+    export const tile80 = image.ofBuffer(hex``);
+    //% fixedInstance jres blockIdentity=images._tile
+    export const tile75 = image.ofBuffer(hex``);
+    //% fixedInstance jres blockIdentity=images._tile
+    export const tile76 = image.ofBuffer(hex``);
+    //% fixedInstance jres blockIdentity=images._tile
+    export const tile81 = image.ofBuffer(hex``);
 
     helpers._registerFactory("tilemap", function(name: string) {
         switch(helpers.stringTrim(name)) {
@@ -263,6 +279,36 @@ namespace myTiles {
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
 `, [myTiles.transparency16], TileScale.Sixteen);
+            case "level7":
+            case "level7":return tiles.createTilemap(hex`1000100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000`, img`
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+`, [myTiles.transparency16], TileScale.Sixteen);
+            case "level8":
+            case "level8":return tiles.createTilemap(hex`0a00080002020a060f010e03080801001000000000141309070011000000000000010800001202060500000e03000000000000000004010d0000000000000001080c0504050301080704080b0500000000000000`, img`
+2 2 2 2 2 2 2 2 2 2 
+2 . . . . . . . . 2 
+2 . . . . . . . . 2 
+2 . . 2 2 2 2 . . 2 
+2 . . . . . . . . 2 
+2 . . . . . . . . 2 
+2 . 2 2 2 2 2 2 2 2 
+2 2 2 . . . . . . . 
+`, [myTiles.transparency16,myTiles.tile4,myTiles.tile6,myTiles.tile7,myTiles.tile8,myTiles.tile9,myTiles.tile11,myTiles.tile12,myTiles.tile13,myTiles.tile69,myTiles.tile41,myTiles.tile78,myTiles.tile79,myTiles.tile80,myTiles.tile5,myTiles.tile10,myTiles.tile75,myTiles.tile76,myTiles.tile81,myTiles.tile74,myTiles.tile71], TileScale.Sixteen);
         }
         return null;
     })
@@ -417,6 +463,22 @@ namespace myTiles {
             case "tile74":return tile74;
             case "enter_placeholder":
             case "tile71":return tile71;
+            case "myTile":
+            case "tile41":return tile41;
+            case "myTile2":
+            case "tile77":return tile77;
+            case "house_tile_0":
+            case "tile78":return tile78;
+            case "myTile3":
+            case "tile79":return tile79;
+            case "myTile4":
+            case "tile80":return tile80;
+            case "myTile0":
+            case "tile75":return tile75;
+            case "myTile1":
+            case "tile76":return tile76;
+            case "myTile5":
+            case "tile81":return tile81;
         }
         return null;
     })

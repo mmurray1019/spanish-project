@@ -168,7 +168,10 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`exit_placeholder`, function (
     tiles.setCurrentTilemap(tilemap`Blank_map`)
     Render.setViewMode(ViewMode.tilemapView)
     if (game.ask("Va a Barcelona?")) {
-    	
+        Render.setViewMode(ViewMode.raycastingView)
+        tiles.setCurrentTilemap(tilemap`level8`)
+        scene.setBackgroundImage(assets.image`Barcelona_BG`)
+        tiles.placeOnRandomTile(player_3D, assets.tile`enter_placeholder`)
     } else {
         Render.setViewMode(ViewMode.raycastingView)
         tiles.setCurrentTilemap(tilemap`Paris`)
