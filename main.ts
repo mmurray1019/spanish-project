@@ -19,6 +19,21 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`Pavillion_Enter_Location`, fu
         tiles.placeOnRandomTile(player_3D, assets.tile`pavilion_exit_location`)
     }
 })
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile0`, function (sprite, location) {
+    tiles.setCurrentTilemap(tilemap`Blank_map`)
+    Render.setViewMode(ViewMode.tilemapView)
+    if (game.ask("Enter?")) {
+        _2dify()
+        _4cat = 1
+        _2dify()
+        tiles.setCurrentTilemap(tilemap`Cuatros_Gatos`)
+        tiles.placeOnRandomTile(Player2d, assets.tile`wood_floor_enter_location`)
+    } else {
+        Render.setViewMode(ViewMode.raycastingView)
+        tiles.setCurrentTilemap(tilemap`barcelona`)
+        tiles.placeOnRandomTile(player_3D, assets.tile`myTile1`)
+    }
+})
 scene.onOverlapTile(SpriteKind.Player, assets.tile`Church_Enter_Location`, function (sprite, location) {
     tiles.setCurrentTilemap(tilemap`Blank_map`)
     Render.setViewMode(ViewMode.tilemapView)
@@ -41,64 +56,28 @@ function _2dify () {
     player_3D.setImage(assets.image`Hidden_Player_Sprite`)
     player_3D.setFlag(SpriteFlag.Invisible, true)
 }
-controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (menu == 0) {
-        Paula.setFlag(SpriteFlag.Invisible, true)
-        if (Render.isViewMode(ViewMode.raycastingView)) {
-            menu = 1
-            Render.toggleViewMode()
-            Render.move(Render.getRenderSpriteInstance(), 0, 0)
-            scene.setBackgroundImage(assets.image`Blank_Background`)
-            player_3D.setImage(assets.image`Luis`)
-            Render.moveWithController(0, 0, 0)
-            myMinimap = minimap.minimap(MinimapScale.Original, 2, 0)
-            Minimap_sprite = sprites.create(minimap.getImage(minimap.minimap(MinimapScale.Quarter, 2, 0)), SpriteKind.Minimap)
-            Minimap_sprite.setStayInScreen(true)
-            myMinimap = minimap.minimap(MinimapScale.Quarter, 0, 0)
-            minimap.includeSprite(myMinimap, player_3D, MinimapSpriteScale.Double)
-            player_3D.setImage(assets.image`Hidden_Player_Sprite`)
-            Minimap_sprite.setImage(minimap.getImage(myMinimap))
-            tiles.setCurrentTilemap(tilemap`Blank_map`)
-        } else if (Render.isViewMode(ViewMode.tilemapView)) {
-            menu = 2
-            Current_tilemap = tiles.getLoadedMap()
-            controller.moveSprite(Player2d, 0, 0)
-            Player2d.setImage(assets.image`Hidden_Player_Sprite`)
-            tiles.setCurrentTilemap(tilemap`Blank_map`)
-            Not_Avalible = textsprite.create("Map Not Avalible", 8, 2)
-            tiles.placeOnTile(Not_Avalible, Player2d.tilemapLocation())
-        }
-    } else if (menu == 1) {
-        Paula.setFlag(SpriteFlag.Invisible, false)
-        player_3D.setImage(assets.image`Hidden_Player_Sprite`)
-        tiles.setCurrentTilemap(tilemap`Paris`)
-        scene.setBackgroundImage(assets.image`Paris_BG`)
-        Render.move(player_3D, 60)
-        Render.moveWithController(2)
-        Render.toggleViewMode()
-        sprites.destroy(Minimap_sprite)
-        menu = 0
-    } else if (menu == 2) {
-        Paula.setFlag(SpriteFlag.Invisible, false)
-        menu = 0
-        sprites.destroy(Not_Avalible)
-        tiles.loadMap(tiles.createMap(tilemap`Spanish_Pavillion`))
-        controller.moveSprite(Player2d, 100, 100)
-        Player2d.setImage(assets.image`Luis`)
-    }
-})
+function _4cat_cutscene () {
+	
+}
 scene.onOverlapTile(SpriteKind.player_2d, assets.tile`wood_floor_exit_location`, function (sprite, location) {
     tiles.setCurrentTilemap(tilemap`Blank_map`)
     if (game.ask("Exit?")) {
         _3Dify()
         if (Pavillion_active == 1) {
             tiles.placeOnRandomTile(player_3D, assets.tile`pavilion_exit_location`)
+        } else if (_4cat == 1) {
+            scene.setBackgroundImage(assets.image`Barcelona_BG`)
+            tiles.setCurrentTilemap(tilemap`barcelona`)
+            tiles.placeOnRandomTile(player_3D, assets.tile`myTile1`)
+            _4cat = 0
         } else {
             tiles.placeOnRandomTile(player_3D, assets.tile`church_exit_location`)
         }
     } else {
         if (Pavillion_active == 1) {
             tiles.setCurrentTilemap(tilemap`Spanish_Pavillion`)
+        } else if (_4cat == 1) {
+            tiles.setCurrentTilemap(tilemap`Cuatros_Gatos`)
         } else {
             tiles.setCurrentTilemap(tilemap`Sante-Chapelle`)
         }
@@ -164,12 +143,58 @@ function pavillion () {
     tiles.placeOnRandomTile(Paula, assets.tile`wood_floor_exit_location`)
     Pavillion_active = 1
 }
+controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
+    if (menu == 0) {
+        Paula.setFlag(SpriteFlag.Invisible, true)
+        if (Render.isViewMode(ViewMode.raycastingView)) {
+            menu = 1
+            Render.toggleViewMode()
+            Render.move(player_3D, 0, 0)
+            scene.setBackgroundImage(assets.image`Blank_Background`)
+            player_3D.setImage(assets.image`Luis`)
+            Render.moveWithController(0, 0, 0)
+            myMinimap = minimap.minimap(MinimapScale.Original, 2, 0)
+            Minimap_sprite = sprites.create(minimap.getImage(minimap.minimap(MinimapScale.Quarter, 2, 0)), SpriteKind.Minimap)
+            Minimap_sprite.setStayInScreen(true)
+            myMinimap = minimap.minimap(MinimapScale.Quarter, 0, 0)
+            minimap.includeSprite(myMinimap, player_3D, MinimapSpriteScale.Double)
+            player_3D.setImage(assets.image`Hidden_Player_Sprite`)
+            Minimap_sprite.setImage(minimap.getImage(myMinimap))
+            tiles.setCurrentTilemap(tilemap`Blank_map`)
+        } else if (Render.isViewMode(ViewMode.tilemapView)) {
+            menu = 2
+            Current_tilemap = tiles.getLoadedMap()
+            controller.moveSprite(Player2d, 0, 0)
+            Player2d.setImage(assets.image`Hidden_Player_Sprite`)
+            tiles.setCurrentTilemap(tilemap`Blank_map`)
+            Not_Avalible = textsprite.create("Map Not Avalible", 8, 2)
+            tiles.placeOnTile(Not_Avalible, Player2d.tilemapLocation())
+        }
+    } else if (menu == 1) {
+        Paula.setFlag(SpriteFlag.Invisible, false)
+        player_3D.setImage(assets.image`Hidden_Player_Sprite`)
+        tiles.setCurrentTilemap(tilemap`Paris`)
+        scene.setBackgroundImage(assets.image`Paris_BG`)
+        Render.move(player_3D, 60)
+        Render.moveWithController(2)
+        Render.toggleViewMode()
+        sprites.destroy(Minimap_sprite)
+        menu = 0
+    } else if (menu == 2) {
+        Paula.setFlag(SpriteFlag.Invisible, false)
+        menu = 0
+        sprites.destroy(Not_Avalible)
+        tiles.loadMap(tiles.createMap(tilemap`Spanish_Pavillion`))
+        controller.moveSprite(Player2d, 100, 100)
+        Player2d.setImage(assets.image`Luis`)
+    }
+})
 scene.onOverlapTile(SpriteKind.Player, assets.tile`exit_placeholder`, function (sprite, location) {
     tiles.setCurrentTilemap(tilemap`Blank_map`)
     Render.setViewMode(ViewMode.tilemapView)
     if (game.ask("Va a Barcelona?")) {
         Render.setViewMode(ViewMode.raycastingView)
-        tiles.setCurrentTilemap(tilemap`level8`)
+        tiles.setCurrentTilemap(tilemap`barcelona`)
         scene.setBackgroundImage(assets.image`Barcelona_BG`)
         tiles.placeOnRandomTile(player_3D, assets.tile`enter_placeholder`)
     } else {
@@ -194,22 +219,26 @@ function church () {
     }
     scene.setBackgroundImage(assets.image`Blank_Background`)
 }
+function cat_cutscene () {
+	
+}
 function Barcelona () {
-    tiles.setCurrentTilemap(tilemap`level6`)
+	
 }
 let textSprite: TextSprite = null
 let A_Press_Indicator = 0
 let mySprite: Sprite = null
+let Not_Avalible: TextSprite = null
+let Current_tilemap: tiles.WorldMap = null
+let Minimap_sprite: Sprite = null
+let myMinimap: minimap.Minimap = null
 let Speech_line_2: TextSprite = null
 let Speech: TextSprite = null
 let Speech_talking_indicator: TextSprite = null
 let cutscene_activator = 0
 let Pavillion_active = 0
-let Not_Avalible: TextSprite = null
-let Current_tilemap: tiles.WorldMap = null
-let Minimap_sprite: Sprite = null
-let myMinimap: minimap.Minimap = null
 let Player2d: Sprite = null
+let _4cat = 0
 let Paula: Sprite = null
 let Paula_Follower: Sprite = null
 let menu = 0
@@ -242,8 +271,10 @@ game.onUpdate(function () {
     if (cutscene_activator == 0 && (A_Press_Indicator == 1 && controller.A.isPressed())) {
         if (Pavillion_active == 1) {
             Guernica_Pedistal_Cutscene()
+        } else if (_4cat == 1) {
+            _4cat_cutscene()
         } else {
-        	
+            cat_cutscene()
         }
     }
     if (Render.isViewMode(ViewMode.raycastingView)) {
