@@ -187,17 +187,19 @@ namespace myTiles {
     //% fixedInstance jres blockIdentity=images._tile
     export const tile92 = image.ofBuffer(hex``);
     //% fixedInstance jres blockIdentity=images._tile
-    export const tile94 = image.ofBuffer(hex``);
-    //% fixedInstance jres blockIdentity=images._tile
     export const tile95 = image.ofBuffer(hex``);
     //% fixedInstance jres blockIdentity=images._tile
     export const tile96 = image.ofBuffer(hex``);
     //% fixedInstance jres blockIdentity=images._tile
-    export const tile93 = image.ofBuffer(hex``);
-    //% fixedInstance jres blockIdentity=images._tile
     export const tile88 = image.ofBuffer(hex``);
     //% fixedInstance jres blockIdentity=images._tile
     export const tile97 = image.ofBuffer(hex``);
+    //% fixedInstance jres blockIdentity=images._tile
+    export const tile98 = image.ofBuffer(hex``);
+    //% fixedInstance jres blockIdentity=images._tile
+    export const tile94 = image.ofBuffer(hex``);
+    //% fixedInstance jres blockIdentity=images._tile
+    export const tile93 = image.ofBuffer(hex``);
 
     helpers._registerFactory("tilemap", function(name: string) {
         switch(helpers.stringTrim(name)) {
@@ -280,17 +282,6 @@ namespace myTiles {
 . . . 2 . 2 2 . 
 . . . 2 . . . . 
 `, [myTiles.transparency16,myTiles.tile4,myTiles.tile5,myTiles.tile6,myTiles.tile8,myTiles.tile9,myTiles.tile10,myTiles.tile11,myTiles.tile13,myTiles.tile69,myTiles.tile74,myTiles.tile71,myTiles.tile87,myTiles.tile91,myTiles.tile92], TileScale.Sixteen);
-            case "Bull_run":
-            case "level14":return tiles.createTilemap(hex`1c00080006090b0301090b0406090b0301090b0406090b0301090b06090b030108080808080808080808080808080808080808080808080808080808090b0301090b0401090b0406090b0301090b0406090b06090b03010906090b0301090b040a06020109010a030902060201060a01090405020c0c0d070808080c0808080808080808080808080808080808080f0e06090b0301090b0404050203040501090102060a040b0901030b09060301090b0406090b0301090b0406090b0301090b0406090b0301090b08080808080808080808080808080808080808080808080808080808`, img`
-2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
-2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
-. . 2 . . . . . . . . . . . . . . . . . . . . . . . . . 
-2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
-2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
-. . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-`, [myTiles.transparency16,myTiles.tile4,myTiles.tile5,myTiles.tile9,myTiles.tile10,myTiles.tile11,myTiles.tile13,myTiles.tile91,sprites.vehicle.roadHorizontal,myTiles.tile6,myTiles.tile7,myTiles.tile12,myTiles.tile93,myTiles.tile94,myTiles.tile95,myTiles.tile96], TileScale.Sixteen);
             case "bull_fight":
             case "level22":return tiles.createTilemap(hex`100008000202020202020202020202020202020202020202020202020202020202020202010101010101010101010101010101010103030403030303030303030303030101030303030303030303030303030501010101010101010101010101010101010202020202020202020202020202020202020202020202020202020202020202`, img`
 2 . . . . . . . . . . . . . . 2 
@@ -399,6 +390,17 @@ namespace myTiles {
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
 `, [myTiles.transparency16], TileScale.Sixteen);
+            case "Bull_run":
+            case "level14":return tiles.createTilemap(hex`1c00080006080a0301080a0406080a0301080a0406080a0301080a06080a03010f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f080a0301080a0401080a0406080a0301080a0406080a06080a03010806080a0301080a0409060201080109030802060201060901080405020f0f0c070f0f0f0b0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0e0d06080a0301080a04040502030405010801020609040a0801030a08060301080a0406080a0301080a0406080a0301080a0406080a0301080a0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f`, img`
+2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
+2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
+. . 2 . . . . . . . . . . . . . . . . . . . . . . . . . 
+2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
+2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+`, [myTiles.transparency16,myTiles.tile4,myTiles.tile5,myTiles.tile9,myTiles.tile10,myTiles.tile11,myTiles.tile13,myTiles.tile91,myTiles.tile6,myTiles.tile7,myTiles.tile12,myTiles.tile93,myTiles.tile94,myTiles.tile95,myTiles.tile96,myTiles.tile98], TileScale.Sixteen);
         }
         return null;
     })
@@ -589,18 +591,20 @@ namespace myTiles {
             case "tile91":return tile91;
             case "house_tile_bull_baracade":
             case "tile92":return tile92;
-            case "Bull pen":
-            case "tile94":return tile94;
             case "Ring_R0":
             case "tile95":return tile95;
             case "Ring_L":
             case "tile96":return tile96;
-            case "Bull Start0":
-            case "tile93":return tile93;
             case "Bull_start0":
             case "tile88":return tile88;
             case "player_start":
             case "tile97":return tile97;
+            case "myTile3":
+            case "tile98":return tile98;
+            case "Bull pen":
+            case "tile94":return tile94;
+            case "Bull Start0":
+            case "tile93":return tile93;
         }
         return null;
     })

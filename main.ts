@@ -232,7 +232,7 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`bullrun_start0`, function (sp
         Bull = sprites.create(assets.image`Bull2`, SpriteKind.Enemy)
         Bull.setScale(0.5, ScaleAnchor.Middle)
         tiles.placeOnTile(Bull, tiles.getTileLocation(0, 4))
-        tiles.replaceAllTiles(assets.tile`bullrun_end`, sprites.vehicle.roadHorizontal)
+        tiles.replaceAllTiles(assets.tile`bullrun_end`, assets.tile`myTile3`)
         Paula.setFlag(SpriteFlag.Invisible, true)
         scene.setBackgroundImage(assets.image`Blank_BG_2`)
     } else {
@@ -343,6 +343,12 @@ scene.onOverlapTile(SpriteKind.player_2d, assets.tile`Bull Start0`, function (sp
     }
     Bull.setFlag(SpriteFlag.GhostThroughWalls, true)
     Bull.setVelocity(123, 0)
+    animation.runImageAnimation(
+    Bull,
+    assets.animation`Run Run Run R`,
+    200,
+    true
+    )
 })
 function _3Dify () {
     sprites.destroyAllSpritesOfKind(SpriteKind.Placeholder)
@@ -683,8 +689,20 @@ game.onUpdate(function () {
     if (cutscene_activator == 2) {
         if (cutscene_activator == 2 && Bull_fight.isHittingTile(CollisionDirection.Left)) {
             Bull_fight.vx = 70
+            animation.runImageAnimation(
+            Bull_fight,
+            assets.animation`Run Run Run R`,
+            200,
+            true
+            )
         } else if (Bull_fight.isHittingTile(CollisionDirection.Right)) {
             Bull_fight.vx = -70
+            animation.runImageAnimation(
+            Bull_fight,
+            assets.animation`Run Run Run L`,
+            200,
+            true
+            )
         }
         if (bull_health <= 0) {
             bull_health = 5000
