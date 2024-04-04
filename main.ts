@@ -16,6 +16,25 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`Pavillion_Enter_Location`, fu
         if (done1 == 0) {
             activity_count += 1
             done1 = 1
+            story.startCutscene(function () {
+                controller.moveSprite(Player2d, 0, 0)
+                Speech_talking_indicator = textsprite.create("Paula", 6, 1)
+                Speech = textsprite.create("Es el exposition?", 12, 1)
+                Speech.setStayInScreen(true)
+                Speech_talking_indicator.setStayInScreen(true)
+                tiles.placeOnTile(Speech_talking_indicator, tiles.getTileLocation(1, 2))
+                tiles.placeOnTile(Speech, tiles.getTileLocation(1, 3))
+                pause(5000)
+                Speech_talking_indicator.setText("Luis")
+                Speech.setText("Si. Muchos cosas exoticas aqui.")
+                pause(5000)
+                Speech_talking_indicator.setText("Paula")
+                Speech.setText("Interesante!")
+                pause(5000)
+                sprites.destroy(Speech_talking_indicator)
+                sprites.destroy(Speech)
+                controller.moveSprite(Player2d, 100, 100)
+            })
         }
         _2dify()
         pavillion()
@@ -573,7 +592,6 @@ let done6 = 0
 let textSprite: TextSprite = null
 let A_Press_Indicator = 0
 let mySprite: Sprite = null
-let felip = 0
 let pamplona = 0
 let barcelona = 0
 let Game_over_2: TextSprite = null
@@ -591,17 +609,17 @@ let Bull_fight: Sprite = null
 let textSprite2: TextSprite = null
 let fight = 0
 let Speech_line_2: TextSprite = null
-let Speech: TextSprite = null
-let Speech_talking_indicator: TextSprite = null
 let Bull: Sprite = null
 let player_platformer: Sprite = null
 let cutscene_activator = 0
 let done2 = 0
 let done5 = 0
-let Player2d: Sprite = null
 let done3 = 0
 let _4cat = 0
 let enter_allowed = 0
+let Speech: TextSprite = null
+let Speech_talking_indicator: TextSprite = null
+let Player2d: Sprite = null
 let activity_count = 0
 let done1 = 0
 let paris = 0
@@ -609,20 +627,29 @@ let Paula: Sprite = null
 let Paula_Follower: Sprite = null
 let menu = 0
 let player_3D: Sprite = null
+let felip = 0
+felip = 1
 story.startCutscene(function () {
+    Render.setViewMode(ViewMode.tilemapView)
+    game.splash("Paula", "El Expositon esta aqui?")
+    game.splash("Luis", "Si. El exposition esta en Paris.")
+    game.splash("Paula", "Vamos!")
+    Render.setViewMode(ViewMode.raycastingView)
     game.showLongText("Usas WASD a caminas.", DialogLayout.Bottom)
+    player_3D = Render.getRenderSpriteVariable()
+    tiles.setCurrentTilemap(tilemap`Paris`)
+    menu = 0
+    felip = 1
+    scene.setBackgroundImage(assets.image`Paris_BG`)
+    Render.move(player_3D, 60, -250)
+    Paula_Follower = sprites.create(assets.image`Hidden_Player_Sprite`, SpriteKind.Sprite_Helper)
+    Paula = sprites.create(assets.image`Paula`, SpriteKind.Paula_sprite)
+    Paula.follow(Paula_Follower, 40)
+    Paula.setScale(0.5, ScaleAnchor.Bottom)
+    Paula_Follower.setFlag(SpriteFlag.Invisible, true)
+    paris = 1
+    felip = 0
 })
-player_3D = Render.getRenderSpriteVariable()
-Render.move(player_3D, 60, -250)
-tiles.setCurrentTilemap(tilemap`Paris`)
-menu = 0
-scene.setBackgroundImage(assets.image`Paris_BG`)
-Paula_Follower = sprites.create(assets.image`Hidden_Player_Sprite`, SpriteKind.Sprite_Helper)
-Paula = sprites.create(assets.image`Paula`, SpriteKind.Paula_sprite)
-Paula.follow(Paula_Follower, 40)
-Paula.setScale(0.5, ScaleAnchor.Bottom)
-Paula_Follower.setFlag(SpriteFlag.Invisible, true)
-paris = 1
 game.onUpdate(function () {
     if (felip == 0) {
         if (Render.isViewMode(ViewMode.tilemapView) && (A_Press_Indicator == 0 && tiles.tileAtLocationEquals(Player2d.tilemapLocation(), assets.tile`A_indicator_overlap`))) {
