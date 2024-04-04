@@ -12,7 +12,8 @@ namespace SpriteKind {
 scene.onOverlapTile(SpriteKind.Player, assets.tile`Pavillion_Enter_Location`, function (sprite, location) {
     tiles.setCurrentTilemap(tilemap`Blank_map`)
     Render.setViewMode(ViewMode.tilemapView)
-    if (game.ask("Enter?")) {
+    if (game.ask("Entra?")) {
+        activity_count += 1
         _2dify()
         pavillion()
     } else {
@@ -24,9 +25,10 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`Pavillion_Enter_Location`, fu
 scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile0`, function (sprite, location) {
     tiles.setCurrentTilemap(tilemap`Blank_map`)
     Render.setViewMode(ViewMode.tilemapView)
-    if (game.ask("Enter?")) {
+    if (game.ask("Entra?")) {
         _2dify()
         _4cat = 1
+        activity_count += 1
         tiles.setCurrentTilemap(tilemap`Cuatros_Gatos`)
         tiles.placeOnRandomTile(Player2d, assets.tile`wood_floor_enter_location`)
     } else {
@@ -38,8 +40,9 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile0`, function (sprite, l
 scene.onOverlapTile(SpriteKind.Player, assets.tile`fountain`, function (sprite, location) {
     tiles.setCurrentTilemap(tilemap`Blank_map`)
     Render.setViewMode(ViewMode.tilemapView)
-    if (game.ask("Enter?")) {
+    if (game.ask("Entra?")) {
         Render.setViewMode(ViewMode.raycastingView)
+        activity_count += 1
         tiles.setCurrentTilemap(tilemap`pavillion`)
         tiles.placeOnRandomTile(player_3D, assets.tile`Enter`)
     } else {
@@ -51,9 +54,10 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`fountain`, function (sprite, 
 scene.onOverlapTile(SpriteKind.Player, assets.tile`Church_Enter_Location`, function (sprite, location) {
     tiles.setCurrentTilemap(tilemap`Blank_map`)
     Render.setViewMode(ViewMode.tilemapView)
-    if (game.ask("Enter?")) {
+    if (game.ask("Entra?")) {
         _2dify()
         church()
+        activity_count += 1
     } else {
         Render.setViewMode(ViewMode.raycastingView)
         tiles.setCurrentTilemap(tilemap`Paris`)
@@ -289,7 +293,7 @@ scene.onOverlapTile(SpriteKind.player_2d, assets.tile`Ring_L`, function (sprite,
             Speech_talking_indicator.setText("Luis")
             Speech.setText("Es el encierro.")
             pause(5000)
-            Speech.setText("Personal corre enfrente ")
+            Speech.setText("Personas corre enfrente ")
             Speech_line_2 = textsprite.create("del toros.", 12, 1)
             tiles.placeOnTile(Speech_line_2, tiles.getTileLocation(22, 3))
             Speech_line_2.setStayInScreen(true)
@@ -358,11 +362,12 @@ scene.onOverlapTile(SpriteKind.player_2d, assets.tile`Ring_L`, function (sprite,
 scene.onOverlapTile(SpriteKind.Player, assets.tile`bullrun_start0`, function (sprite, location) {
     tiles.setCurrentTilemap(tilemap`Blank_map`)
     Render.setViewMode(ViewMode.tilemapView)
-    if (game.ask("Enter?")) {
+    if (game.ask("Entra?")) {
         _2dify()
         tiles.setCurrentTilemap(tilemap`Bull_run`)
         tiles.placeOnRandomTile(Player2d, assets.tile`bullrun_end`)
         scene.cameraFollowSprite(Player2d)
+        activity_count += 1
         Bull = sprites.create(img`
             ........................................ff......
             .......................................fbf......
@@ -525,16 +530,18 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`bullrun_start0`, function (sp
 })
 scene.onOverlapTile(SpriteKind.player_2d, assets.tile`wood_floor_exit_location`, function (sprite, location) {
     tiles.setCurrentTilemap(tilemap`Blank_map`)
-    if (game.ask("Exit?")) {
-        _3Dify()
+    if (game.ask("Salido?")) {
         if (Pavillion_active == 1) {
+            _3Dify()
             tiles.placeOnRandomTile(player_3D, assets.tile`pavilion_exit_location`)
         } else if (_4cat == 1) {
+            _3Dify()
             scene.setBackgroundImage(assets.image`Barcelona_BG`)
             tiles.setCurrentTilemap(tilemap`barcelona`)
             tiles.placeOnRandomTile(player_3D, assets.tile`myTile1`)
             _4cat = 0
         } else {
+            _3Dify()
             tiles.placeOnRandomTile(player_3D, assets.tile`church_exit_location`)
         }
     } else {
@@ -640,11 +647,13 @@ function _3Dify () {
     tiles.placeOnTile(Paula, tiles.locationInDirection(tiles.locationOfSprite(player_3D), CollisionDirection.Left))
     Paula.setScale(0.5, ScaleAnchor.Bottom)
     Paula.follow(Paula_Follower, 40)
+    Pavillion_active = 0
+    _4cat = 0
 }
 scene.onOverlapTile(SpriteKind.Player, assets.tile`Leave0`, function (sprite, location) {
     tiles.setCurrentTilemap(tilemap`Blank_map`)
     Render.setViewMode(ViewMode.tilemapView)
-    if (game.ask("Exit?")) {
+    if (game.ask("Salido?")) {
         Render.setViewMode(ViewMode.raycastingView)
         tiles.setCurrentTilemap(tilemap`barcelona`)
         tiles.placeOnRandomTile(player_3D, assets.tile`myTile4`)
@@ -708,9 +717,6 @@ controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
         Player2d.setImage(assets.image`Luis`)
     }
 })
-/**
- * englishify
- */
 info.onLifeZero(function () {
     sprites.destroy(player_platformer)
     Game_over = textsprite.create("Game Over. Try again? ", 15, 10)
@@ -808,6 +814,47 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`exit_placeholder`, function (
         }
     }
 })
+scene.onOverlapTile(SpriteKind.Player, sprites.castle.tileGrass2, function (sprite, location) {
+    felip = 1
+    tiles.loadMap(tiles.createMap(tilemap`Blank_map`))
+    player_3D.setFlag(SpriteFlag.Invisible, true)
+    Paula.setFlag(SpriteFlag.Invisible, true)
+    Render.setViewMode(ViewMode.tilemapView)
+    story.startCutscene(function () {
+        Render.move(player_3D, 0)
+        Render.moveWithController(0)
+        Speech_talking_indicator = textsprite.create("Paula", 6, 1)
+        Speech = textsprite.create("Donde esta?", 12, 1)
+        Speech.setStayInScreen(true)
+        Speech_talking_indicator.setStayInScreen(true)
+        tiles.placeOnTile(Speech_talking_indicator, tiles.getTileLocation(22, 1))
+        tiles.placeOnTile(Speech, tiles.getTileLocation(22, 2))
+        pause(2000)
+        Speech_talking_indicator.setText("Luis")
+        Speech.setText("Es San Felip Neri.")
+        pause(5000)
+        Speech.setText("Es una plaza.")
+        pause(5000)
+        Speech.setText("Francisco Franco bomba")
+        Speech_line_2 = textsprite.create("la plaza.", 12, 1)
+        tiles.placeOnTile(Speech_line_2, tiles.getTileLocation(22, 3))
+        Speech_line_2.setStayInScreen(true)
+        pause(5000)
+        Speech.setText("Muchos personas muerto.")
+        Speech_line_2.setText("Es muy triste.")
+        pause(5000)
+        sprites.destroy(Speech)
+        sprites.destroy(Speech_line_2)
+        sprites.destroy(Speech_talking_indicator)
+        Render.moveWithController(2)
+        tiles.setCurrentTilemap(tilemap`pavillion`)
+        tiles.placeOnRandomTile(player_3D, sprites.castle.tileGrass3)
+        Render.setViewMode(ViewMode.raycastingView)
+        felip = 0
+        player_3D.setFlag(SpriteFlag.Invisible, false)
+        Paula.setFlag(SpriteFlag.Invisible, false)
+    })
+})
 function church () {
     tiles.setCurrentTilemap(tilemap`Sante-Chapelle`)
     tiles.placeOnRandomTile(Paula, assets.tile`wood_floor_exit_location`)
@@ -855,6 +902,7 @@ function cat_cutscene () {
 let textSprite: TextSprite = null
 let A_Press_Indicator = 0
 let mySprite: Sprite = null
+let felip = 0
 let pamplona = 0
 let barcelona = 0
 let Game_over_2: TextSprite = null
@@ -878,6 +926,7 @@ let player_platformer: Sprite = null
 let cutscene_activator = 0
 let Player2d: Sprite = null
 let _4cat = 0
+let activity_count = 0
 let paris = 0
 let Paula: Sprite = null
 let Paula_Follower: Sprite = null
@@ -898,30 +947,32 @@ Paula.setScale(0.5, ScaleAnchor.Bottom)
 Paula_Follower.setFlag(SpriteFlag.Invisible, true)
 paris = 1
 game.onUpdate(function () {
-    if (Render.isViewMode(ViewMode.tilemapView) && (A_Press_Indicator == 0 && tiles.tileAtLocationEquals(Player2d.tilemapLocation(), assets.tile`A_indicator_overlap`))) {
-        A_Press_Indicator = 1
-        textSprite = textsprite.create("")
-        textSprite.setIcon(assets.image`A`)
-        textSprite.setFlag(SpriteFlag.RelativeToCamera, true)
-        textSprite.setPosition(143, 106)
-    } else if (Render.isViewMode(ViewMode.tilemapView) && (A_Press_Indicator == 1 && !(tiles.tileAtLocationEquals(Player2d.tilemapLocation(), assets.tile`A_indicator_overlap`)))) {
-        textSprite.setIcon(assets.image`Hidden_Player_Sprite`)
-        sprites.destroy(textSprite)
-        A_Press_Indicator = 0
-    }
-    if (cutscene_activator == 0 && (A_Press_Indicator == 1 && controller.A.isPressed())) {
-        if (Pavillion_active == 1) {
-            Guernica_Pedistal_Cutscene()
-        } else if (_4cat == 1) {
-            _4cat_cutscene()
-        } else {
-            cat_cutscene()
+    if (felip == 0) {
+        if (Render.isViewMode(ViewMode.tilemapView) && (A_Press_Indicator == 0 && tiles.tileAtLocationEquals(Player2d.tilemapLocation(), assets.tile`A_indicator_overlap`))) {
+            A_Press_Indicator = 1
+            textSprite = textsprite.create("")
+            textSprite.setIcon(assets.image`A`)
+            textSprite.setFlag(SpriteFlag.RelativeToCamera, true)
+            textSprite.setPosition(143, 106)
+        } else if (Render.isViewMode(ViewMode.tilemapView) && (A_Press_Indicator == 1 && !(tiles.tileAtLocationEquals(Player2d.tilemapLocation(), assets.tile`A_indicator_overlap`)))) {
+            textSprite.setIcon(assets.image`Hidden_Player_Sprite`)
+            sprites.destroy(textSprite)
+            A_Press_Indicator = 0
         }
-    }
-    if (Render.isViewMode(ViewMode.raycastingView)) {
-        tiles.placeOnTile(Paula_Follower, tiles.locationInDirection(tiles.locationOfSprite(player_3D), CollisionDirection.Left))
-    } else if (Render.isViewMode(ViewMode.tilemapView)) {
-        tiles.placeOnTile(Paula_Follower, tiles.locationInDirection(tiles.locationOfSprite(Player2d), CollisionDirection.Bottom))
+        if (cutscene_activator == 0 && (A_Press_Indicator == 1 && controller.A.isPressed())) {
+            if (Pavillion_active == 1) {
+                Guernica_Pedistal_Cutscene()
+            } else if (_4cat == 1) {
+                _4cat_cutscene()
+            } else {
+                cat_cutscene()
+            }
+        }
+        if (Render.isViewMode(ViewMode.raycastingView)) {
+            tiles.placeOnTile(Paula_Follower, tiles.locationInDirection(tiles.locationOfSprite(player_3D), CollisionDirection.Left))
+        } else if (Render.isViewMode(ViewMode.tilemapView)) {
+            tiles.placeOnTile(Paula_Follower, tiles.locationInDirection(tiles.locationOfSprite(Player2d), CollisionDirection.Bottom))
+        }
     }
 })
 game.onUpdate(function () {
@@ -956,8 +1007,29 @@ game.onUpdate(function () {
                 Speech.setText("El torrero ")
                 Speech_line_2.setText("mataron el toro.")
                 pause(5000)
+                sprites.destroy(Speech_line_2)
                 Speech_talking_indicator.setText("Paula")
+                Speech.setText("Interesante!")
+                pause(5000)
+                sprites.destroy(Speech_talking_indicator)
+                sprites.destroy(Speech)
+                sprites.destroy(player_platformer)
+                tiles.setCurrentTilemap(tilemap`Pamplona`)
+                scene.setBackgroundImage(assets.image`Pamplona_BG`)
+                _3Dify()
+                tiles.placeOnRandomTile(player_3D, assets.tile`bullrun_end`)
+                activity_count += 1
             })
+        }
+    }
+})
+game.onUpdate(function () {
+    if (activity_count == 6) {
+        if (game.ask("Ganaste!", "fin del videoquego?")) {
+            game.setGameOverMessage(true, "Ganaste!")
+            game.gameOver(true)
+        } else {
+            activity_count = 0
         }
     }
 })
