@@ -22,12 +22,16 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`Pavillion_Enter_Location`, fu
                 Speech = textsprite.create("Es el exposition?", 12, 1)
                 Speech.setStayInScreen(true)
                 Speech_talking_indicator.setStayInScreen(true)
-                tiles.placeOnTile(Speech_talking_indicator, tiles.getTileLocation(1, 2))
-                tiles.placeOnTile(Speech, tiles.getTileLocation(1, 3))
+                tiles.placeOnTile(Speech_talking_indicator, tiles.getTileLocation(1, 11))
+                tiles.placeOnTile(Speech, tiles.getTileLocation(1, 12))
                 pause(5000)
                 Speech_talking_indicator.setText("Luis")
-                Speech.setText("Si. Muchos cosas exoticas aqui.")
+                Speech_line_2 = textsprite.create("exoticas aqui.", 12, 1)
+                tiles.placeOnTile(Speech_line_2, tiles.getTileLocation(1, 13))
+                Speech_line_2.setStayInScreen(true)
+                Speech.setText("Si. Muchos cosas")
                 pause(5000)
+                sprites.destroy(Speech_line_2)
                 Speech_talking_indicator.setText("Paula")
                 Speech.setText("Interesante!")
                 pause(5000)
@@ -614,7 +618,6 @@ let bull_health = 0
 let Bull_fight: Sprite = null
 let textSprite2: TextSprite = null
 let fight = 0
-let Speech_line_2: TextSprite = null
 let Bull: Sprite = null
 let player_platformer: Sprite = null
 let cutscene_activator = 0
@@ -623,6 +626,7 @@ let done5 = 0
 let done3 = 0
 let _4cat = 0
 let enter_allowed = 0
+let Speech_line_2: TextSprite = null
 let Speech: TextSprite = null
 let Speech_talking_indicator: TextSprite = null
 let Player2d: Sprite = null
