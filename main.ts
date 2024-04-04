@@ -6,6 +6,8 @@ namespace SpriteKind {
     export const Paula_sprite = SpriteKind.create()
     export const Character = SpriteKind.create()
     export const civillian = SpriteKind.create()
+    export const platformer = SpriteKind.create()
+    export const Boss = SpriteKind.create()
 }
 scene.onOverlapTile(SpriteKind.Player, assets.tile`Pavillion_Enter_Location`, function (sprite, location) {
     tiles.setCurrentTilemap(tilemap`Blank_map`)
@@ -56,6 +58,13 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`Church_Enter_Location`, funct
         Render.setViewMode(ViewMode.raycastingView)
         tiles.setCurrentTilemap(tilemap`Paris`)
         tiles.placeOnRandomTile(player_3D, assets.tile`church_exit_location`)
+    }
+})
+controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
+    if (cutscene_activator == 2) {
+        if (cutscene_activator == 2 && player_platformer.isHittingTile(CollisionDirection.Bottom)) {
+            player_platformer.vy = -250
+        }
     }
 })
 sprites.onOverlap(SpriteKind.player_2d, SpriteKind.Enemy, function (sprite, otherSprite) {
@@ -257,15 +266,94 @@ function _4cat_cutscene () {
         cutscene_activator = 0
     })
 }
-function encierro__corrido_de_toros_cutscene () {
-	
-}
+controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
+    if (cutscene_activator == 2) {
+        if (cutscene_activator == 2 && player_platformer.isHittingTile(CollisionDirection.Bottom)) {
+            player_platformer.vy = -250
+        }
+    }
+})
 scene.onOverlapTile(SpriteKind.player_2d, assets.tile`Ring_L`, function (sprite, location) {
     sprites.destroy(Bull)
-    story.startCutscene(function () {
-        controller.moveSprite(Player2d, 0, 0)
-        Speech_talking_indicator = textsprite.create("Paula", 6, 1)
-    })
+    if (fight == 0) {
+        story.startCutscene(function () {
+            fight = 1
+            controller.moveSprite(Player2d, 0, 0)
+            Speech_talking_indicator = textsprite.create("Paula", 6, 1)
+            Speech = textsprite.create("Que fue eso?", 12, 1)
+            Speech.setStayInScreen(true)
+            Speech_talking_indicator.setStayInScreen(true)
+            tiles.placeOnTile(Speech_talking_indicator, tiles.getTileLocation(22, 1))
+            tiles.placeOnTile(Speech, tiles.getTileLocation(22, 2))
+            pause(2000)
+            Speech_talking_indicator.setText("Luis")
+            Speech.setText("Es el encierro.")
+            pause(5000)
+            Speech.setText("Personal corre enfrente ")
+            Speech_line_2 = textsprite.create("del toros.", 12, 1)
+            tiles.placeOnTile(Speech_line_2, tiles.getTileLocation(22, 3))
+            Speech_line_2.setStayInScreen(true)
+            pause(5000)
+            Speech.setText("Es parte del festival")
+            Speech_line_2.setText("de San Fermin.")
+            pause(5000)
+            Speech.setText("Es un festival muy")
+            Speech_line_2.setText("grande.")
+            pause(5000)
+            Speech_talking_indicator.setText("Paula")
+            Speech.setText("Interesante!")
+            sprites.destroy(Speech_line_2)
+            pause(5000)
+            sprites.destroy(Speech_talking_indicator)
+            textSprite2 = textsprite.create("Salta para A o W.", 15, 2)
+            textSprite2.setStayInScreen(true)
+            sprites.destroy(Speech)
+            pause(5000)
+            sprites.destroy(textSprite2)
+            controller.moveSprite(Player2d, 100, 100)
+            sprites.destroy(Player2d)
+            player_platformer = sprites.create(assets.image`Platformer_sprite`, SpriteKind.platformer)
+            player_platformer.ay = 500
+            controller.moveSprite(player_platformer, 100, 0)
+            Bull_fight = sprites.create(img`
+                ........................................ff......
+                .......................................fbf......
+                ......................................fbf.......
+                .............................fffff...fbf........
+                .........................ffffeeeeeff.fbf........
+                .......................ffeeeeeeeeeeefbf.........
+                .....................ffeeeeeeeeeeeeefbf.........
+                ...................ffeeeeeeeeeeeeeeefbbfff......
+                fff...............feeeeeeeeeeeeeeeeffffeeeff....
+                fccf............ffeeeeeeeeeeeeeeeeefeeeeeeeef...
+                .fcf..........ffeeeeeeeeeeeeeeeeeeeefffe2eeeef..
+                ..fcfff....fffeeeeeeeeeeeeeeeeeeeeeeeeee22eeccf.
+                ...feeeffffeeeffeeeeeeeeeeeeeeeeeeeeeeeeeeeccfcf
+                ....ffeeeeeeff.feeeeeeeeeeeeeeeeeeeeeeeeeeecccff
+                ......ffffff..feeeeeeeeeeeeeeeeeeeeeeeeeeeecccf.
+                ..............feeeeeeeefeeeeeeeeeeefeeeee2eeccf.
+                .............feeeeeeeefeeeeeeeeefeefeeeeee22ff..
+                .............feeeeeeefeffffeeeeefeeefeeeffff....
+                ..............feeeeefef....fffeeefeeefff........
+                ..............feeeffef........fffffeeefef.......
+                .............feeefeef..............feefeef......
+                ............feeffeff..............feef.feef.....
+                ..........ffeefeef...............ffeef..feef....
+                .........feeffeff...............f..ff....ffbf...
+                .........fbf.fbf................fff........ff...
+                .........ff..ff.................................
+                `, SpriteKind.Boss)
+            Bull_fight.vx = 70
+            Bull_fight.ay = 500
+            tiles.setCurrentTilemap(tilemap`bull_fight`)
+            scene.cameraFollowSprite(player_platformer)
+            tiles.placeOnRandomTile(Bull_fight, assets.tile`Bull_start0`)
+            tiles.placeOnRandomTile(player_platformer, assets.tile`player_start`)
+            info.setLife(3)
+            bull_health = 3
+            cutscene_activator = 2
+        })
+    }
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`bullrun_start0`, function (sprite, location) {
     tiles.setCurrentTilemap(tilemap`Blank_map`)
@@ -460,6 +548,39 @@ scene.onOverlapTile(SpriteKind.player_2d, assets.tile`wood_floor_exit_location`,
         tiles.placeOnRandomTile(Player2d, assets.tile`wood_floor_enter_location`)
     }
 })
+sprites.onOverlap(SpriteKind.platformer, SpriteKind.Boss, function (sprite, otherSprite) {
+    if (sprite.bottom < otherSprite.y) {
+        sprite.vy = -100
+        if (bull_immune == 0) {
+            bull_immune = 1
+            bull_health += -1
+            pause(2000)
+            pause(1000)
+            bull_immune = 0
+        }
+    } else {
+        if (immunity_play == 0) {
+            info.changeLifeBy(-1)
+            immunity_play = 1
+            for (let index = 0; index < 3; index++) {
+                player_platformer.setFlag(SpriteFlag.Invisible, true)
+                pause(200)
+                player_platformer.setFlag(SpriteFlag.Invisible, false)
+                pause(200)
+                player_platformer.setFlag(SpriteFlag.Invisible, true)
+                pause(200)
+                player_platformer.setFlag(SpriteFlag.Invisible, false)
+                pause(200)
+                player_platformer.setFlag(SpriteFlag.Invisible, true)
+                pause(200)
+                player_platformer.setFlag(SpriteFlag.Invisible, false)
+            }
+            immunity_play = 0
+        } else {
+        	
+        }
+    }
+})
 function Guernica_Pedistal_Cutscene () {
     cutscene_activator = 1
     tiles.loadMap(tiles.createMap(tilemap`Spanish_Pavillion`))
@@ -587,6 +708,62 @@ controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
         Player2d.setImage(assets.image`Luis`)
     }
 })
+/**
+ * englishify
+ */
+info.onLifeZero(function () {
+    sprites.destroy(player_platformer)
+    Game_over = textsprite.create("Game Over. Try again? ", 15, 10)
+    Game_over_2 = textsprite.create("Press A. ", 15, 10)
+    Game_over.setStayInScreen(true)
+    Game_over_2.setStayInScreen(true)
+    tiles.placeOnTile(Game_over, tiles.getTileLocation(1, 2))
+    tiles.placeOnTile(Game_over_2, tiles.getTileLocation(1, 3))
+    pause(100)
+    pauseUntil(() => controller.A.isPressed())
+    sprites.destroy(Game_over, effects.confetti, 1000)
+    sprites.destroy(Game_over_2, effects.confetti, 1000)
+    sprites.destroy(Bull_fight)
+    player_platformer = sprites.create(assets.image`Platformer_sprite`, SpriteKind.platformer)
+    player_platformer.ay = 500
+    controller.moveSprite(player_platformer, 100, 0)
+    Bull_fight = sprites.create(img`
+        ........................................ff......
+        .......................................fbf......
+        ......................................fbf.......
+        .............................fffff...fbf........
+        .........................ffffeeeeeff.fbf........
+        .......................ffeeeeeeeeeeefbf.........
+        .....................ffeeeeeeeeeeeeefbf.........
+        ...................ffeeeeeeeeeeeeeeefbbfff......
+        fff...............feeeeeeeeeeeeeeeeffffeeeff....
+        fccf............ffeeeeeeeeeeeeeeeeefeeeeeeeef...
+        .fcf..........ffeeeeeeeeeeeeeeeeeeeefffe2eeeef..
+        ..fcfff....fffeeeeeeeeeeeeeeeeeeeeeeeeee22eeccf.
+        ...feeeffffeeeffeeeeeeeeeeeeeeeeeeeeeeeeeeeccfcf
+        ....ffeeeeeeff.feeeeeeeeeeeeeeeeeeeeeeeeeeecccff
+        ......ffffff..feeeeeeeeeeeeeeeeeeeeeeeeeeeecccf.
+        ..............feeeeeeeefeeeeeeeeeeefeeeee2eeccf.
+        .............feeeeeeeefeeeeeeeeefeefeeeeee22ff..
+        .............feeeeeeefeffffeeeeefeeefeeeffff....
+        ..............feeeeefef....fffeeefeeefff........
+        ..............feeeffef........fffffeeefef.......
+        .............feeefeef..............feefeef......
+        ............feeffeff..............feef.feef.....
+        ..........ffeefeef...............ffeef..feef....
+        .........feeffeff...............f..ff....ffbf...
+        .........fbf.fbf................fff........ff...
+        .........ff..ff.................................
+        `, SpriteKind.Boss)
+    Bull_fight.vx = 70
+    Bull_fight.ay = 500
+    tiles.setCurrentTilemap(tilemap`bull_fight`)
+    tiles.placeOnRandomTile(Bull_fight, assets.tile`Bull_start0`)
+    tiles.placeOnRandomTile(player_platformer, assets.tile`player_start`)
+    info.setLife(3)
+    scene.cameraFollowSprite(player_platformer)
+    bull_health = 3
+})
 scene.onOverlapTile(SpriteKind.Player, assets.tile`exit_placeholder`, function (sprite, location) {
     tiles.setCurrentTilemap(tilemap`Blank_map`)
     Render.setViewMode(ViewMode.tilemapView)
@@ -680,16 +857,25 @@ let A_Press_Indicator = 0
 let mySprite: Sprite = null
 let pamplona = 0
 let barcelona = 0
+let Game_over_2: TextSprite = null
+let Game_over: TextSprite = null
 let Not_Avalible: TextSprite = null
 let Current_tilemap: tiles.WorldMap = null
 let Minimap_sprite: Sprite = null
 let myMinimap: minimap.Minimap = null
+let immunity_play = 0
+let bull_immune = 0
 let Pavillion_active = 0
+let bull_health = 0
+let Bull_fight: Sprite = null
+let textSprite2: TextSprite = null
+let fight = 0
 let Speech_line_2: TextSprite = null
 let Speech: TextSprite = null
 let Speech_talking_indicator: TextSprite = null
-let cutscene_activator = 0
 let Bull: Sprite = null
+let player_platformer: Sprite = null
+let cutscene_activator = 0
 let Player2d: Sprite = null
 let _4cat = 0
 let paris = 0
@@ -698,7 +884,7 @@ let Paula_Follower: Sprite = null
 let menu = 0
 let player_3D: Sprite = null
 story.startCutscene(function () {
-    game.showLongText("Use WSAD or arrow keys to move.", DialogLayout.Bottom)
+    game.showLongText("Usas WASD a caminas.", DialogLayout.Bottom)
 })
 player_3D = Render.getRenderSpriteVariable()
 Render.move(player_3D, 60, -250)
@@ -736,5 +922,42 @@ game.onUpdate(function () {
         tiles.placeOnTile(Paula_Follower, tiles.locationInDirection(tiles.locationOfSprite(player_3D), CollisionDirection.Left))
     } else if (Render.isViewMode(ViewMode.tilemapView)) {
         tiles.placeOnTile(Paula_Follower, tiles.locationInDirection(tiles.locationOfSprite(Player2d), CollisionDirection.Bottom))
+    }
+})
+game.onUpdate(function () {
+    if (cutscene_activator == 2) {
+        if (cutscene_activator == 2 && Bull_fight.isHittingTile(CollisionDirection.Left)) {
+            Bull_fight.vx = 70
+        } else if (Bull_fight.isHittingTile(CollisionDirection.Right)) {
+            Bull_fight.vx = -70
+        }
+        if (bull_health <= 0) {
+            bull_health = 5000
+            pause(100)
+            sprites.destroy(Bull_fight, effects.fire, 2000)
+            story.startCutscene(function () {
+                controller.moveSprite(player_platformer, 0, 0)
+                Speech_talking_indicator = textsprite.create("Paula", 6, 1)
+                Speech = textsprite.create("Que fue eso?", 12, 1)
+                Speech.setStayInScreen(true)
+                Speech_talking_indicator.setStayInScreen(true)
+                tiles.placeOnTile(Speech_talking_indicator, tiles.getTileLocation(1, 2))
+                tiles.placeOnTile(Speech, tiles.getTileLocation(1, 3))
+                pause(2000)
+                Speech_talking_indicator.setText("Luis")
+                Speech.setText("Es el corrida de")
+                Speech_line_2 = textsprite.create("toros.", 12, 1)
+                Speech_line_2.setStayInScreen(true)
+                tiles.placeOnTile(Speech, tiles.getTileLocation(1, 4))
+                pause(5000)
+                Speech.setText("Torreros attaca los")
+                Speech_line_2.setText("toros.")
+                pause(5000)
+                Speech.setText("El torrero ")
+                Speech_line_2.setText("mataron el toro.")
+                pause(5000)
+                Speech_talking_indicator.setText("Paula")
+            })
+        }
     }
 })
