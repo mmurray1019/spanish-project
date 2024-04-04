@@ -398,50 +398,8 @@ function pavillion () {
     Pavillion_active = 1
 }
 controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (menu == 0) {
-        Paula.setFlag(SpriteFlag.Invisible, true)
-        if (Render.isViewMode(ViewMode.raycastingView)) {
-            menu = 1
-            Render.toggleViewMode()
-            Render.move(player_3D, 0, 0)
-            scene.setBackgroundImage(assets.image`Blank_Background`)
-            player_3D.setImage(assets.image`Luis`)
-            Render.moveWithController(0, 0, 0)
-            myMinimap = minimap.minimap(MinimapScale.Original, 2, 0)
-            Minimap_sprite = sprites.create(minimap.getImage(minimap.minimap(MinimapScale.Quarter, 2, 0)), SpriteKind.Minimap)
-            Minimap_sprite.setStayInScreen(true)
-            myMinimap = minimap.minimap(MinimapScale.Quarter, 0, 0)
-            minimap.includeSprite(myMinimap, player_3D, MinimapSpriteScale.Double)
-            player_3D.setImage(assets.image`Hidden_Player_Sprite`)
-            Minimap_sprite.setImage(minimap.getImage(myMinimap))
-            tiles.setCurrentTilemap(tilemap`Blank_map`)
-        } else if (Render.isViewMode(ViewMode.tilemapView)) {
-            menu = 2
-            Current_tilemap = tiles.getLoadedMap()
-            controller.moveSprite(Player2d, 0, 0)
-            Player2d.setImage(assets.image`Hidden_Player_Sprite`)
-            tiles.setCurrentTilemap(tilemap`Blank_map`)
-            Not_Avalible = textsprite.create("Map Not Avalible", 8, 2)
-            tiles.placeOnTile(Not_Avalible, Player2d.tilemapLocation())
-        }
-    } else if (menu == 1) {
-        Paula.setFlag(SpriteFlag.Invisible, false)
-        player_3D.setImage(assets.image`Hidden_Player_Sprite`)
-        tiles.setCurrentTilemap(tilemap`Paris`)
-        scene.setBackgroundImage(assets.image`Paris_BG`)
-        Render.move(player_3D, 60)
-        Render.moveWithController(2)
-        Render.toggleViewMode()
-        sprites.destroy(Minimap_sprite)
-        menu = 0
-    } else if (menu == 2) {
-        Paula.setFlag(SpriteFlag.Invisible, false)
-        menu = 0
-        sprites.destroy(Not_Avalible)
-        tiles.loadMap(tiles.createMap(tilemap`Spanish_Pavillion`))
-        controller.moveSprite(Player2d, 100, 100)
-        Player2d.setImage(assets.image`Luis`)
-    }
+    controller.moveSprite(Player2d, 100, 100)
+    story.cancelAllCutscenes()
 })
 info.onLifeZero(function () {
     sprites.destroy(player_platformer)
@@ -598,6 +556,7 @@ function cat_cutscene () {
         cutscene_activator = 0
     })
 }
+let finish = 0
 let done6 = 0
 let textSprite: TextSprite = null
 let A_Press_Indicator = 0
@@ -606,10 +565,6 @@ let pamplona = 0
 let barcelona = 0
 let Game_over_2: TextSprite = null
 let Game_over: TextSprite = null
-let Not_Avalible: TextSprite = null
-let Current_tilemap: tiles.WorldMap = null
-let Minimap_sprite: Sprite = null
-let myMinimap: minimap.Minimap = null
 let immunity_play = 0
 let bull_immune = 0
 let Pavillion_active = 0
@@ -740,25 +695,43 @@ game.onUpdate(function () {
                 sprites.destroy(Speech_talking_indicator)
                 sprites.destroy(Speech)
                 sprites.destroy(player_platformer)
-                tiles.setCurrentTilemap(tilemap`Pamplona`)
-                scene.setBackgroundImage(assets.image`Pamplona_BG`)
-                _3Dify()
-                tiles.placeOnRandomTile(player_3D, assets.tile`bullrun_end`)
                 if (done6 == 0) {
                     done6 = 1
                     activity_count += 1
                 }
+                if (activity_count == 6) {
+                    Render.setViewMode(ViewMode.tilemapView)
+                    tiles.setCurrentTilemap(tilemap`level12`)
+                    if (game.ask("Ganaste!", "fin del videoquego?")) {
+                        game.setGameOverMessage(true, "Ganaste!")
+                        game.gameOver(true)
+                    } else {
+                        activity_count = 0
+                        Render.setViewMode(ViewMode.raycastingView)
+                        tiles.setCurrentTilemap(tilemap`Paris`)
+                    }
+                } else {
+                    finish = 1
+                }
+                _3Dify()
+                tiles.setCurrentTilemap(tilemap`Pamplona`)
+                scene.setBackgroundImage(assets.image`Pamplona_BG`)
+                tiles.placeOnRandomTile(player_3D, assets.tile`bullrun_end`)
             })
         }
     }
 })
 game.onUpdate(function () {
-    if (activity_count == 6) {
+    if (finish == 1 && activity_count == 6) {
+        Render.setViewMode(ViewMode.tilemapView)
+        tiles.setCurrentTilemap(tilemap`level12`)
         if (game.ask("Ganaste!", "fin del videoquego?")) {
             game.setGameOverMessage(true, "Ganaste!")
             game.gameOver(true)
         } else {
             activity_count = 0
+            Render.setViewMode(ViewMode.raycastingView)
+            tiles.setCurrentTilemap(tilemap`Paris`)
         }
     }
 })
