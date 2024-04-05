@@ -224,7 +224,7 @@ scene.onOverlapTile(SpriteKind.player_2d, assets.tile`Ring_L`, function (sprite,
             tiles.placeOnRandomTile(Bull_fight, assets.tile`Bull_start0`)
             tiles.placeOnRandomTile(player_platformer, assets.tile`player_start`)
             info.setLife(3)
-            bull_health = 3
+            bull_health = 5
             cutscene_activator = 2
         })
     }
@@ -304,8 +304,19 @@ sprites.onOverlap(SpriteKind.platformer, SpriteKind.Boss, function (sprite, othe
         if (bull_immune == 0) {
             bull_immune = 1
             bull_health += -1
-            pause(2000)
-            pause(1000)
+            for (let index = 0; index < 3; index++) {
+                Bull_fight.setFlag(SpriteFlag.Invisible, true)
+                pause(200)
+                Bull_fight.setFlag(SpriteFlag.Invisible, false)
+                pause(200)
+                Bull_fight.setFlag(SpriteFlag.Invisible, true)
+                pause(200)
+                Bull_fight.setFlag(SpriteFlag.Invisible, false)
+                pause(200)
+                Bull_fight.setFlag(SpriteFlag.Invisible, true)
+                pause(200)
+                Bull_fight.setFlag(SpriteFlag.Invisible, false)
+            }
             bull_immune = 0
         }
     } else {
@@ -379,6 +390,10 @@ scene.onOverlapTile(SpriteKind.player_2d, assets.tile`Bull Start0`, function (sp
     200,
     true
     )
+})
+sprites.onOverlap(SpriteKind.platformer, SpriteKind.Projectile, function (sprite, otherSprite) {
+    sprites.destroy(otherSprite)
+    info.changeLifeBy(-2)
 })
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
     if (Render.isViewMode(ViewMode.tilemapView)) {
@@ -487,7 +502,7 @@ info.onLifeZero(function () {
     tiles.placeOnRandomTile(player_platformer, assets.tile`player_start`)
     info.setLife(3)
     scene.cameraFollowSprite(player_platformer)
-    bull_health = 3
+    bull_health = 5
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`exit_placeholder`, function (sprite, location) {
     tiles.setCurrentTilemap(tilemap`Blank_map`)
@@ -618,8 +633,11 @@ function cat_cutscene () {
         cutscene_activator = 0
     })
 }
+let projectile2: Sprite = null
+let projectile: Sprite = null
 let finish = 0
 let done6 = 0
+let left = 0
 let textSprite: TextSprite = null
 let A_Press_Indicator = 0
 let mySprite: Sprite = null
@@ -709,6 +727,7 @@ game.onUpdate(function () {
 game.onUpdate(function () {
     if (cutscene_activator == 2) {
         if (cutscene_activator == 2 && Bull_fight.isHittingTile(CollisionDirection.Left)) {
+            left = 0
             Bull_fight.vx = 70
             animation.runImageAnimation(
             Bull_fight,
@@ -717,6 +736,7 @@ game.onUpdate(function () {
             true
             )
         } else if (Bull_fight.isHittingTile(CollisionDirection.Right)) {
+            left = 1
             Bull_fight.vx = -70
             animation.runImageAnimation(
             Bull_fight,
@@ -794,6 +814,32 @@ game.onUpdate(function () {
             activity_count = 0
             Render.setViewMode(ViewMode.raycastingView)
             tiles.setCurrentTilemap(tilemap`Paris`)
+        }
+    }
+})
+game.onUpdateInterval(5000, function () {
+    if (cutscene_activator == 2) {
+        if (left == 0) {
+            projectile = sprites.createProjectileFromSprite(assets.image`Proj`, Bull_fight, 150, 0)
+        } else if (left == 1) {
+            projectile2 = sprites.createProjectileFromSprite(img`
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . . . . 
+                . . . . . . . . . . . . . f f . 
+                . . . . . . . . . . . . f . . . 
+                . . . . . . . . . . . f . . f . 
+                . . . . . . . . . . f . . f . . 
+                . . . . . . . . . . f . f . . f 
+                . . . . . . . . . . f . f . f . 
+                . . . . . . . . . . f . f . f . 
+                . . . . . . . . . . f . f . . f 
+                . . . . . . . . . . f . . f . . 
+                . . . . . . . . . . . f . . f . 
+                . . . . . . . . . . . . f . . . 
+                . . . . . . . . . . . . . f f . 
+                . . . . . . . . . . . . . . . . 
+                `, Bull_fight, -150, 0)
         }
     }
 })
