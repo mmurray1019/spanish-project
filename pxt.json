@@ -13,7 +13,8 @@
         "tilemaps": "github:microsoft/pxt-tilemaps#v1.12.0",
         "arcade-text": "github:microsoft/arcade-text#v1.3.0",
         "storyboard": "*",
-        "Color Fading": "github:jwunderl/pxt-color#v0.2.3"
+        "Color Fading": "github:jwunderl/pxt-color#v0.2.3",
+        "Achievements": "github:UnsignedArduino/Achievements#a578c77dd75467b9b0b5238a9a31c5fdc427cb9d"
     },
     "files": [
         "main.blocks",

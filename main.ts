@@ -102,6 +102,14 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`Church_Enter_Location`, funct
     }
 })
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
+    if (Render.isViewMode(ViewMode.tilemapView)) {
+        animation.runImageAnimation(
+        Player2d,
+        assets.animation`walkU`,
+        200,
+        true
+        )
+    }
     if (cutscene_activator == 2) {
         if (cutscene_activator == 2 && player_platformer.isHittingTile(CollisionDirection.Bottom)) {
             player_platformer.vy = -250
@@ -219,6 +227,24 @@ scene.onOverlapTile(SpriteKind.player_2d, assets.tile`Ring_L`, function (sprite,
             bull_health = 3
             cutscene_activator = 2
         })
+    }
+})
+controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
+    if (Render.isViewMode(ViewMode.tilemapView)) {
+        animation.runImageAnimation(
+        Player2d,
+        assets.animation`walkL`,
+        200,
+        true
+        )
+        if (cutscene_activator == 2) {
+            animation.runImageAnimation(
+            player_platformer,
+            assets.animation`walkL`,
+            200,
+            true
+            )
+        }
     }
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`bullrun_start0`, function (sprite, location) {
@@ -354,6 +380,24 @@ scene.onOverlapTile(SpriteKind.player_2d, assets.tile`Bull Start0`, function (sp
     true
     )
 })
+controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
+    if (Render.isViewMode(ViewMode.tilemapView)) {
+        animation.runImageAnimation(
+        Player2d,
+        assets.animation`walkR`,
+        200,
+        true
+        )
+        if (cutscene_activator == 2) {
+            animation.runImageAnimation(
+            player_platformer,
+            assets.animation`walkR`,
+            200,
+            true
+            )
+        }
+    }
+})
 function _3Dify () {
     sprites.destroyAllSpritesOfKind(SpriteKind.Placeholder)
     tiles.placeOnTile(Player2d, tiles.getTileLocation(0, 0))
@@ -397,6 +441,24 @@ function pavillion () {
     tiles.placeOnRandomTile(Paula, assets.tile`wood_floor_exit_location`)
     Pavillion_active = 1
 }
+controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
+    if (Render.isViewMode(ViewMode.tilemapView)) {
+        animation.runImageAnimation(
+        Player2d,
+        assets.animation`walkD`,
+        200,
+        true
+        )
+        if (cutscene_activator == 2) {
+            animation.runImageAnimation(
+            player_platformer,
+            assets.animation`walkD`,
+            200,
+            true
+            )
+        }
+    }
+})
 controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
     controller.moveSprite(Player2d, 100, 100)
     story.cancelAllCutscenes()
