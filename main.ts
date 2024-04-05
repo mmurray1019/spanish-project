@@ -12,7 +12,7 @@ namespace SpriteKind {
 scene.onOverlapTile(SpriteKind.Player, assets.tile`Pavillion_Enter_Location`, function (sprite, location) {
     tiles.setCurrentTilemap(tilemap`Blank_map`)
     Render.setViewMode(ViewMode.tilemapView)
-    if (game.ask("Entra?")) {
+    if (game.ask("Entras?")) {
         if (done1 == 0) {
             activity_count += 1
             done1 = 1
@@ -52,7 +52,7 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile0`, function (sprite, l
     if (enter_allowed == 0) {
         tiles.setCurrentTilemap(tilemap`Blank_map`)
         Render.setViewMode(ViewMode.tilemapView)
-        if (game.ask("Entra?")) {
+        if (game.ask("Entras?")) {
             _2dify()
             _4cat = 1
             if (done3 == 0) {
@@ -71,7 +71,7 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile0`, function (sprite, l
 scene.onOverlapTile(SpriteKind.Player, assets.tile`fountain`, function (sprite, location) {
     tiles.setCurrentTilemap(tilemap`Blank_map`)
     Render.setViewMode(ViewMode.tilemapView)
-    if (game.ask("Entra?")) {
+    if (game.ask("Entras?")) {
         Render.setViewMode(ViewMode.raycastingView)
         if (done5 == 0) {
             activity_count += 1
@@ -88,7 +88,7 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`fountain`, function (sprite, 
 scene.onOverlapTile(SpriteKind.Player, assets.tile`Church_Enter_Location`, function (sprite, location) {
     tiles.setCurrentTilemap(tilemap`Blank_map`)
     Render.setViewMode(ViewMode.tilemapView)
-    if (game.ask("Entra?")) {
+    if (game.ask("Entras?")) {
         _2dify()
         church()
         if (done2 == 0) {
@@ -159,7 +159,7 @@ function _4cat_cutscene () {
         pause(5000)
         sprites.destroy(Speech_line_2)
         Speech_talking_indicator.setText("Luis")
-        Speech.setText("En Pamplona. Vamos!")
+        Speech.setText("En Pamplona. Vamanos!")
         pause(5000)
         sprites.destroy(Speech_talking_indicator)
         sprites.destroy(Speech)
@@ -250,7 +250,7 @@ controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
 scene.onOverlapTile(SpriteKind.Player, assets.tile`bullrun_start0`, function (sprite, location) {
     tiles.setCurrentTilemap(tilemap`Blank_map`)
     Render.setViewMode(ViewMode.tilemapView)
-    if (game.ask("Entra?")) {
+    if (game.ask("Entras?")) {
         _2dify()
         tiles.setCurrentTilemap(tilemap`Bull_run`)
         tiles.placeOnRandomTile(Player2d, assets.tile`bullrun_end`)
@@ -273,7 +273,7 @@ scene.onOverlapTile(SpriteKind.Player, assets.tile`bullrun_start0`, function (sp
 })
 scene.onOverlapTile(SpriteKind.player_2d, assets.tile`wood_floor_exit_location`, function (sprite, location) {
     tiles.setCurrentTilemap(tilemap`Blank_map`)
-    if (game.ask("Salido?")) {
+    if (game.ask("Salidas?")) {
         if (Pavillion_active == 1) {
             _3Dify()
             tiles.placeOnRandomTile(player_3D, assets.tile`pavilion_exit_location`)
@@ -358,7 +358,7 @@ function Guernica_Pedistal_Cutscene () {
         pause(5000)
         Speech_talking_indicator.setText("Luis")
         Speech.setText("Es la Sante-Chapelle! ")
-        Speech_line_2.setText("Vamos!")
+        Speech_line_2.setText("Vamanos!")
         pause(5000)
         sprites.destroy(Speech_talking_indicator)
         sprites.destroy(Speech)
@@ -420,7 +420,7 @@ function _3Dify () {
 scene.onOverlapTile(SpriteKind.Player, assets.tile`Leave0`, function (sprite, location) {
     tiles.setCurrentTilemap(tilemap`Blank_map`)
     Render.setViewMode(ViewMode.tilemapView)
-    if (game.ask("Salido?")) {
+    if (game.ask("Salidas?")) {
         enter_allowed = 1
         Render.setViewMode(ViewMode.raycastingView)
         tiles.placeOnRandomTile(player_3D, sprites.castle.tileGrass3)
@@ -607,7 +607,7 @@ function cat_cutscene () {
         pause(2000)
         Speech_talking_indicator.setText("Luis")
         Speech.setText("Es el resturante!")
-        Speech_line_2 = textsprite.create("Vamos!", 12, 1)
+        Speech_line_2 = textsprite.create("Vamanos!", 12, 1)
         tiles.placeOnTile(Speech_line_2, tiles.getTileLocation(1, 5))
         Speech_line_2.setStayInScreen(true)
         pause(5000)
@@ -658,11 +658,11 @@ let felip = 0
 felip = 1
 story.startCutscene(function () {
     Render.setViewMode(ViewMode.tilemapView)
-    game.splash("Paula", "El Expositon esta aqui?")
+    game.splash("Paula", "El Exposition esta aqui?")
     game.splash("Luis", "Si. El exposition esta en Paris.")
-    game.splash("Paula", "Vamos!")
+    game.splash("Paula", "Vamanos!")
     Render.setViewMode(ViewMode.raycastingView)
-    game.showLongText("Usas WASD a caminas.", DialogLayout.Bottom)
+    game.showLongText("Usas WASD para caminar.", DialogLayout.Bottom)
     player_3D = Render.getRenderSpriteVariable()
     tiles.setCurrentTilemap(tilemap`Paris`)
     menu = 0
