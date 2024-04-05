@@ -299,46 +299,54 @@ scene.onOverlapTile(SpriteKind.player_2d, assets.tile`wood_floor_exit_location`,
     }
 })
 sprites.onOverlap(SpriteKind.platformer, SpriteKind.Boss, function (sprite, otherSprite) {
-    if (sprite.bottom < otherSprite.y) {
-        sprite.vy = -100
-        if (bull_immune == 0) {
-            bull_immune = 1
-            bull_health += -1
-            for (let index = 0; index < 3; index++) {
-                Bull_fight.setFlag(SpriteFlag.Invisible, true)
-                pause(200)
-                Bull_fight.setFlag(SpriteFlag.Invisible, false)
-                pause(200)
-                Bull_fight.setFlag(SpriteFlag.Invisible, true)
-                pause(200)
-                Bull_fight.setFlag(SpriteFlag.Invisible, false)
-                pause(200)
-                Bull_fight.setFlag(SpriteFlag.Invisible, true)
-                pause(200)
-                Bull_fight.setFlag(SpriteFlag.Invisible, false)
+    if (cutscene_activator == 2) {
+        if (sprite.bottom < otherSprite.y) {
+            sprite.vy = -100
+            if (bull_immune == 0) {
+                bull_immune = 1
+                bull_health += -1
+                for (let index = 0; index < 3; index++) {
+                    Bull_fight.setFlag(SpriteFlag.Invisible, true)
+                    pause(200)
+                    Bull_fight.setFlag(SpriteFlag.Invisible, false)
+                    pause(200)
+                    Bull_fight.setFlag(SpriteFlag.Invisible, true)
+                    pause(200)
+                    Bull_fight.setFlag(SpriteFlag.Invisible, false)
+                    pause(200)
+                    Bull_fight.setFlag(SpriteFlag.Invisible, true)
+                    pause(200)
+                    Bull_fight.setFlag(SpriteFlag.Invisible, false)
+                }
+                bull_immune = 0
             }
-            bull_immune = 0
+        } else {
+            if (immunity_play == 0) {
+                info.changeLifeBy(-1)
+                immunity_play = 1
+                for (let index = 0; index < 3; index++) {
+                    player_platformer.setFlag(SpriteFlag.Invisible, true)
+                    pause(200)
+                    player_platformer.setFlag(SpriteFlag.Invisible, false)
+                    pause(200)
+                    player_platformer.setFlag(SpriteFlag.Invisible, true)
+                    pause(200)
+                    player_platformer.setFlag(SpriteFlag.Invisible, false)
+                    pause(200)
+                    player_platformer.setFlag(SpriteFlag.Invisible, true)
+                    pause(200)
+                    player_platformer.setFlag(SpriteFlag.Invisible, false)
+                }
+                immunity_play = 0
+            } else {
+            	
+            }
         }
     } else {
-        if (immunity_play == 0) {
-            info.changeLifeBy(-1)
-            immunity_play = 1
-            for (let index = 0; index < 3; index++) {
-                player_platformer.setFlag(SpriteFlag.Invisible, true)
-                pause(200)
-                player_platformer.setFlag(SpriteFlag.Invisible, false)
-                pause(200)
-                player_platformer.setFlag(SpriteFlag.Invisible, true)
-                pause(200)
-                player_platformer.setFlag(SpriteFlag.Invisible, false)
-                pause(200)
-                player_platformer.setFlag(SpriteFlag.Invisible, true)
-                pause(200)
-                player_platformer.setFlag(SpriteFlag.Invisible, false)
-            }
-            immunity_play = 0
+        if (sprite.bottom < otherSprite.y) {
+            sprite.vy = -100
         } else {
-        	
+            info.changeLifeBy(-1)
         }
     }
 })
@@ -479,30 +487,35 @@ controller.menu.onEvent(ControllerButtonEvent.Pressed, function () {
     story.cancelAllCutscenes()
 })
 info.onLifeZero(function () {
-    sprites.destroy(player_platformer)
-    Game_over = textsprite.create("Game Over. Try again? ", 15, 10)
-    Game_over_2 = textsprite.create("Press A. ", 15, 10)
-    Game_over.setStayInScreen(true)
-    Game_over_2.setStayInScreen(true)
-    tiles.placeOnTile(Game_over, tiles.getTileLocation(1, 2))
-    tiles.placeOnTile(Game_over_2, tiles.getTileLocation(1, 3))
-    pause(100)
-    pauseUntil(() => controller.A.isPressed())
-    sprites.destroy(Game_over, effects.confetti, 1000)
-    sprites.destroy(Game_over_2, effects.confetti, 1000)
-    sprites.destroy(Bull_fight)
-    player_platformer = sprites.create(assets.image`Platformer_sprite`, SpriteKind.platformer)
-    player_platformer.ay = 500
-    controller.moveSprite(player_platformer, 100, 0)
-    Bull_fight = sprites.create(assets.image`Bull`, SpriteKind.Boss)
-    Bull_fight.vx = 70
-    Bull_fight.ay = 500
-    tiles.setCurrentTilemap(tilemap`bull_fight`)
-    tiles.placeOnRandomTile(Bull_fight, assets.tile`Bull_start0`)
-    tiles.placeOnRandomTile(player_platformer, assets.tile`player_start`)
-    info.setLife(3)
-    scene.cameraFollowSprite(player_platformer)
-    bull_health = 5
+    if (cutscene_activator == 2) {
+        sprites.destroy(player_platformer)
+        Game_over = textsprite.create("Game Over. Try again? ", 15, 10)
+        Game_over_2 = textsprite.create("Press A. ", 15, 10)
+        Game_over.setStayInScreen(true)
+        Game_over_2.setStayInScreen(true)
+        tiles.placeOnTile(Game_over, tiles.getTileLocation(1, 2))
+        tiles.placeOnTile(Game_over_2, tiles.getTileLocation(1, 3))
+        pause(100)
+        pauseUntil(() => controller.A.isPressed())
+        sprites.destroy(Game_over, effects.confetti, 1000)
+        sprites.destroy(Game_over_2, effects.confetti, 1000)
+        sprites.destroy(Bull_fight)
+        player_platformer = sprites.create(assets.image`Platformer_sprite`, SpriteKind.platformer)
+        player_platformer.ay = 500
+        controller.moveSprite(player_platformer, 100, 0)
+        Bull_fight = sprites.create(assets.image`Bull`, SpriteKind.Boss)
+        Bull_fight.vx = 70
+        Bull_fight.ay = 500
+        tiles.setCurrentTilemap(tilemap`bull_fight`)
+        tiles.placeOnRandomTile(Bull_fight, assets.tile`Bull_start0`)
+        tiles.placeOnRandomTile(player_platformer, assets.tile`player_start`)
+        info.setLife(3)
+        scene.cameraFollowSprite(player_platformer)
+        bull_health = 5
+    } else {
+        info.setLife(3)
+        info.changeScoreBy(-1)
+    }
 })
 scene.onOverlapTile(SpriteKind.Player, assets.tile`exit_placeholder`, function (sprite, location) {
     tiles.setCurrentTilemap(tilemap`Blank_map`)
@@ -605,6 +618,36 @@ function church () {
     }
     scene.setBackgroundImage(assets.image`Blank_Background`)
 }
+scene.onOverlapTile(SpriteKind.Player, assets.tile`Tile_Transparancy_Test`, function (sprite, location) {
+    Render.toggleViewMode()
+    tiles.setCurrentTilemap(tilemap`bull_fight`)
+    player_platformer = sprites.create(img`
+        . . . . . . f f f f . . . . . . 
+        . . . . f f f 2 2 f f f . . . . 
+        . . . f f f 2 2 2 2 f f f . . . 
+        . . f f f e e e e e e f f f . . 
+        . . f f e 2 2 2 2 2 2 e e f . . 
+        . . f e 2 f f f f f f 2 e f . . 
+        . . f f f f e e e e f f f f . . 
+        . f f e f b f 4 4 f b f e f f . 
+        . f e e 4 1 f d d f 1 4 e e f . 
+        . . f e e d d d d d d e e f . . 
+        . . . f e e 4 4 4 4 e e f . . . 
+        . . e 4 f 2 2 2 2 2 2 f 4 e . . 
+        . . 4 d f 2 2 2 2 2 2 f d 4 . . 
+        . . 4 4 f 4 4 5 5 4 4 f 4 4 . . 
+        . . . . . f f f f f f . . . . . 
+        . . . . . f f . . f f . . . . . 
+        `, SpriteKind.platformer)
+    controller.moveSprite(player_platformer, 100, 0)
+    scene.cameraFollowSprite(player_platformer)
+    player_platformer.ay = 500
+    for (let index = 0; index < 4; index++) {
+        Bull_fight = sprites.create(assets.image`Bull`, SpriteKind.Boss)
+        Bull_fight.setVelocity(100, 0)
+        tiles.placeOnRandomTile(Bull_fight, sprites.castle.tilePath5)
+    }
+})
 function cat_cutscene () {
     cutscene_activator = 1
     story.startCutscene(function () {
@@ -799,6 +842,7 @@ game.onUpdate(function () {
                 tiles.setCurrentTilemap(tilemap`Pamplona`)
                 scene.setBackgroundImage(assets.image`Pamplona_BG`)
                 tiles.placeOnRandomTile(player_3D, assets.tile`bullrun_end`)
+                cutscene_activator = 0
             })
         }
     }
